@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://hft6v7piwqrt"]
+[gd_scene load_steps=6 format=3 uid="uid://hft6v7piwqrt"]
 
 [ext_resource type="Script" path="res://GameObjects/Characters/Players/PlayerController.cs" id="1_kjjq3"]
 
@@ -9,7 +9,11 @@
 [sub_resource type="BoxMesh" id="BoxMesh_gi2s7"]
 size = Vector3(3, 0.05, 1)
 
+[sub_resource type="BoxMesh" id="BoxMesh_04747"]
+size = Vector3(0.11, 0.06, 2.3)
+
 [node name="Player" type="CharacterBody3D"]
+axis_lock_angular_z = true
 script = ExtResource("1_kjjq3")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -25,3 +29,8 @@ current = true
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.97166, 0.000138283)
 mesh = SubResource("BoxMesh_gi2s7")
+
+[node name="FlightDirection" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FlightDirection"]
+mesh = SubResource("BoxMesh_04747")
