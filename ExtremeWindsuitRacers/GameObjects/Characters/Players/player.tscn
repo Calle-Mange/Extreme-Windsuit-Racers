@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://hft6v7piwqrt"]
 
-[ext_resource type="Script" path="res://GameObjects/Characters/Players/PlayerController.cs" id="1_kjjq3"]
+[ext_resource type="Script" path="res://Scripts/PlayerController.cs" id="1_kjjq3"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_v0kbe"]
 
