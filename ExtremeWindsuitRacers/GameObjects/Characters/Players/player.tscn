@@ -1,13 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://hft6v7piwqrt"]
+[gd_scene load_steps=6 format=3 uid="uid://hft6v7piwqrt"]
 
-[ext_resource type="Script" path="res://Scripts/PlayerController.cs" id="1_kjjq3"]
+[ext_resource type="Script" path="res://GameObjects/Characters/Players/PlayerController.cs" id="1_kjjq3"]
+[ext_resource type="PackedScene" uid="uid://dkojd0mxx5q4y" path="res://GameObjects/Characters/Players/player_hud.tscn" id="2_fojiw"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_v0kbe"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_s5ukl"]
-
 [sub_resource type="BoxMesh" id="BoxMesh_gi2s7"]
 size = Vector3(3, 0.05, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_s5ukl"]
 
 [node name="Player" type="CharacterBody3D"]
 axis_lock_angular_z = true
@@ -16,6 +17,11 @@ script = ExtResource("1_kjjq3")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_v0kbe")
 
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.97166, 0.000138283)
+mesh = SubResource("BoxMesh_gi2s7")
+skeleton = NodePath("../..")
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_s5ukl")
 
@@ -23,6 +29,21 @@ shape = SubResource("CapsuleShape3D_s5ukl")
 transform = Transform3D(1, 0, 0, 0, 0.927465, 0.373911, 0, -0.373911, 0.927465, 0, 2.64765, 4.10991)
 current = true
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.97166, 0.000138283)
-mesh = SubResource("BoxMesh_gi2s7")
+[node name="PlayerHUD" parent="." instance=ExtResource("2_fojiw")]
+
+[node name="Control" parent="PlayerHUD" index="0"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1.0
+offset_top = -20.0
+offset_right = 39.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="AnalogInput" from="PlayerHUD/Control" to="." method="OnMouseAnalogInput"]
+
+[editable path="PlayerHUD"]
