@@ -1,0 +1,141 @@
+using Godot;
+using System;
+
+public partial class WingSuitController : CharacterBody3D
+{
+    const float YawRate = 4.0f;
+    const float GravityCustom = 10f;
+
+    float MaxSpeed = 100.0f;
+    float MinSpeed = 10.0f;
+    float Acceleration = 5.0f;
+    float MaxPitchAngleDegrees = 80.0f;
+    float YawAnglePerSecond = 20.0f;
+
+    MeshInstance3D PlayerMesh;
+
+    Vector3 ForwardDirection;
+     Vector2 TurnInput;
+    float PitchInput = .0f;
+    float YawInput = .0f;
+    float Yaw = .0f;
+
+    Tween RotationalTween;
+    float CurrentSpeed = .0f;
+    float RiseMeter = 0.0f;
+    float RiseMeterMax = 20.0f;
+    float RiseMeterMin;
+    float AcceleratedSpeed;
+
+    public override void _Ready()
+	{
+        PlayerMesh = GetNode<MeshInstance3D>("MeshInstance3D");
+        CurrentSpeed = MinSpeed;
+        RiseMeterMin = RiseMeter;
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        HandleInput();
+        HandlePhysics(delta);
+        HandleRotation(delta);
+        HandleAnimation();
+    }
+
+    /// <summary>
+    /// Handles input from player to determine pitch and yaw.
+    /// </summary>
+    private void HandleInput()
+    {
+        PitchInput = TurnInput.Y * -1;
+        YawInput = TurnInput.X * -1;
+    }
+
+    /// <summary>
+    /// Handles physics for the wingsuit movement. Rise meter determines how high player can go after building up speed downwards.
+    /// </summary>
+    /// <param name="delta">Delta used for calculating physics per second instead of frame.</param>
+    private void HandlePhysics(double delta)
+    {
+        Vector3 velocity = Velocity;
+        ForwardDirection = Basis.Z * -1;
+
+        if (PitchInput < 0)
+        {
+            RiseMeter += 2 * (float)delta;
+        }
+        else if (PitchInput > 0)
+        {
+            if (RiseMeter > 0)
+            {
+                RiseMeter -= 2 * (float)delta;
+            }
+            else
+            {
+                PitchInput = 0;
+            }
+        }
+        RiseMeter = Mathf.Clamp(RiseMeter, RiseMeterMin, RiseMeterMax);
+
+        AcceleratedSpeed = Mathf.Abs(CurrentSpeed + (PitchInput * -Acceleration));
+
+        if (PitchInput != 0)
+        {
+            CurrentSpeed = (float)Mathf.Lerp(CurrentSpeed, AcceleratedSpeed, (float)delta * 6);
+        }
+        else
+        {
+            CurrentSpeed = (float)Mathf.Lerp(CurrentSpeed, MinSpeed, (float)delta * 0.1f);
+        }
+        CurrentSpeed = Mathf.Clamp(CurrentSpeed, MinSpeed, MaxSpeed);
+
+        velocity = ForwardDirection * CurrentSpeed;
+        velocity.Y -= GravityCustom * 10 * (float)delta;
+
+        Velocity = velocity;
+        MoveAndSlide();
+    }
+
+    /// <summary>
+    /// Handles Yaw rotation to steer player left and right.
+    /// </summary>
+    /// <param name="delta">Delta used for calculating physics per second instead of frame.</param>
+    private void HandleRotation(double delta)
+    {
+        if (YawInput != 0)
+        {
+            Yaw += YawInput;
+        }
+        else
+        {
+            Yaw = Mathf.LerpAngle(Yaw, 0, YawRate * (float)delta);
+        }
+        Yaw = Mathf.Clamp(Yaw, -YawAnglePerSecond, YawAnglePerSecond);
+    }
+
+    /// <summary>
+    /// Handles rotation of plater modell.
+    /// </summary>
+    private void HandleAnimation()
+    {
+        if (RotationalTween != null)
+        {
+            RotationalTween.Kill();
+        }
+
+        RotationalTween = GetTree().CreateTween().SetEase(Tween.EaseType.Out).SetParallel(true);
+
+        RotationalTween.TweenProperty(PlayerMesh, "rotation_degrees:z", YawInput * 45, .5f);
+        RotationalTween.TweenProperty(this, "rotation_degrees:x", PitchInput * MaxPitchAngleDegrees, .75f);
+        RotationalTween.TweenProperty(this, "rotation_degrees:y", Yaw, 0.2f).AsRelative();
+    }
+
+    /// <summary>
+    /// Handles input from mouse to convert into TurnInput.
+    /// </summary>
+    /// <param name="analog">Mouse vector2 as calculated by the AnalogInputController.</param>
+    private void OnMouseAnalogInput(Vector2 analog)
+    {
+        TurnInput = analog;
+    }
+}

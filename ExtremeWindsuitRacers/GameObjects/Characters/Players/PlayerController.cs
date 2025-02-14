@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 public partial class PlayerController : CharacterBody3D
 {
-    private float MaxSpeed = 8.0f;
+    private float MaxSpeed = 80.0f;
     private float MinSpeed = 0f;
     private float Acceleration = 2.5f;
     private float Deacceleration = 1.5f;
@@ -15,6 +15,7 @@ public partial class PlayerController : CharacterBody3D
     private float roll_speed = 45.0f;
     private float BaseAngle = 90.0f;
     private float GravityFactor = 9.8f;
+    private float newSpeed = 0.0f;
 
     private MeshInstance3D PlayerMesh;
 
@@ -42,9 +43,12 @@ public partial class PlayerController : CharacterBody3D
         var gravityNormal = GetGravity().Normalized();
         var velocityNormal = velocity.Normalized() * -1;
 
-        var accelerationPercent = (gravityNormal.Y - velocityNormal.Y) / gravityNormal.Y;
-        var accelerationNew = GetGravity().Y * accelerationPercent;
-        GD.Print("Acceleration: " + accelerationNew + " " + "percent of gravity: " + accelerationPercent);
+        var accelerationPercent = ((gravityNormal.Y - velocityNormal.Y) / gravityNormal.Y) / 2;
+
+        var accelerationNew = GetGravity().Y * accelerationPercent * -1;
+
+        GD.Print(accelerationPercent);
+        GD.Print(accelerationNew);
 
         //Rewrite to instead always accelerate based on angle between gravity vector and direction vector.
         if (input.Y > 0 && CurrentSpeed < MaxSpeed)
