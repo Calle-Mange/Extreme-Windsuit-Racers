@@ -13,6 +13,8 @@ size = Vector3(3, 0.05, 1)
 [node name="Player" type="CharacterBody3D"]
 axis_lock_angular_z = true
 script = ExtResource("1_jnog1")
+MaxSpeed = 150.0
+YawAnglePerSecond = 10.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_v0kbe")
