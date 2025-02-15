@@ -6,16 +6,16 @@ public partial class WingSuitController : CharacterBody3D
     const float YawRate = 4.0f;
     const float GravityCustom = 10f;
 
-    float MaxSpeed = 100.0f;
-    float MinSpeed = 10.0f;
-    float Acceleration = 5.0f;
-    float MaxPitchAngleDegrees = 80.0f;
-    float YawAnglePerSecond = 20.0f;
+    [Export] float MaxSpeed = 100.0f;
+    [Export] float MinSpeed = 10.0f;
+    [Export] float Acceleration = 5.0f;
+    [Export] float MaxPitchAngleDegrees = 80.0f;
+    [Export] float YawAnglePerSecond = 20.0f;
 
     MeshInstance3D PlayerMesh;
 
     Vector3 ForwardDirection;
-     Vector2 TurnInput;
+    Vector2 TurnInput;
     float PitchInput = .0f;
     float YawInput = .0f;
     float Yaw = .0f;
@@ -23,12 +23,12 @@ public partial class WingSuitController : CharacterBody3D
     Tween RotationalTween;
     float CurrentSpeed = .0f;
     float RiseMeter = 0.0f;
-    float RiseMeterMax = 20.0f;
+    [Export] float RiseMeterMax = 20.0f;
     float RiseMeterMin;
     float AcceleratedSpeed;
 
     public override void _Ready()
-	{
+    {
         PlayerMesh = GetNode<MeshInstance3D>("MeshInstance3D");
         CurrentSpeed = MinSpeed;
         RiseMeterMin = RiseMeter;
