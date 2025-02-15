@@ -124,7 +124,7 @@ public partial class WingSuitController : CharacterBody3D
     }
 
     /// <summary>
-    /// Handles rotation of plater modell.
+    /// Handles rotation of player model.
     /// </summary>
     private void HandleAnimation()
     {
