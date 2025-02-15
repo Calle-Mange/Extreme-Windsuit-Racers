@@ -49,6 +49,10 @@ public partial class AnalogInputController : Control
 		{
 			EmitSignal(SignalName.AnalogInput, analog);
 		}
+		else if (analog.Length() <= DeadZone)
+		{
+			EmitSignal(SignalName.AnalogInput, Vector2.Zero);
+		}
 
 		QueueRedraw();
 	}
