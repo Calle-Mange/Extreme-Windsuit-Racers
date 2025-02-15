@@ -3,29 +3,39 @@ using System;
 
 public partial class WingSuitController : CharacterBody3D
 {
+    #region Constants
     const float YawRate = 4.0f;
-    const float GravityCustom = 10f;
+    #endregion
 
+    #region Exports
+    [Export] float GravityCustom = 10f;
     [Export] float MaxSpeed = 100.0f;
     [Export] float MinSpeed = 10.0f;
     [Export] float Acceleration = 5.0f;
     [Export] float MaxPitchAngleDegrees = 80.0f;
     [Export] float YawAnglePerSecond = 20.0f;
+    [Export] float RiseMeterMax = 20.0f;
+    #endregion
 
-    MeshInstance3D PlayerMesh;
-
-    Vector3 ForwardDirection;
-    Vector2 TurnInput;
+    #region Floats
+    float CurrentSpeed = .0f;
+    float RiseMeter = 0.0f;
+    float RiseMeterMin;
+    float AcceleratedSpeed;
     float PitchInput = .0f;
     float YawInput = .0f;
     float Yaw = .0f;
+    #endregion
 
+    #region Vectors
+    Vector3 ForwardDirection;
+    Vector2 TurnInput;
+    #endregion
+
+    #region Nodes
+    MeshInstance3D PlayerMesh;
     Tween RotationalTween;
-    float CurrentSpeed = .0f;
-    float RiseMeter = 0.0f;
-    [Export] float RiseMeterMax = 20.0f;
-    float RiseMeterMin;
-    float AcceleratedSpeed;
+    #endregion
 
     public override void _Ready()
     {
