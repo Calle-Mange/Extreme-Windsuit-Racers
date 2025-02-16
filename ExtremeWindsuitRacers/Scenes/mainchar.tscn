@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwcgjl1rbyjqg"]
+
+[ext_resource type="PackedScene" uid="uid://c5gh2p86xteha" path="res://lowpollywingmananimreal.glb" id="1_lw23x"]
+
+[node name="LowPollyMan" instance=ExtResource("1_lw23x")]
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/0/position = Vector3(-0.00221879, 0.976363, 0.0239927)
+bones/0/rotation = Quaternion(-0.0387394, 3.59844e-05, -0.0019463, 0.999247)
+bones/0/scale = Vector3(1, 1, 1)
+bones/1/rotation = Quaternion(0.168541, 0.000217905, 0.00193443, 0.985693)
+bones/2/rotation = Quaternion(-0.00711699, -0.0452925, 0.971817, -0.231235)
+bones/3/rotation = Quaternion(0.154848, -0.00725702, -0.0399654, 0.987103)
+bones/4/rotation = Quaternion(0.745374, 0.0270321, 0.664703, -0.0430917)
+bones/5/rotation = Quaternion(-0.000511413, -0.000141874, 0.0856195, 0.996328)
+bones/6/scale = Vector3(1, 1, 1)
+bones/7/rotation = Quaternion(0.00707664, -0.045316, 0.97271, 0.227446)
+bones/7/scale = Vector3(1, 1, 1)
+bones/8/rotation = Quaternion(0.154848, 0.00725702, 0.0399653, 0.987103)
+bones/9/rotation = Quaternion(0.745622, -0.024125, -0.664699, -0.0405139)
+bones/10/rotation = Quaternion(-0.000511172, 0.000141879, -0.08562, 0.996328)
+bones/11/rotation = Quaternion(-0.145172, 0.0433016, 0.609296, 0.778337)
