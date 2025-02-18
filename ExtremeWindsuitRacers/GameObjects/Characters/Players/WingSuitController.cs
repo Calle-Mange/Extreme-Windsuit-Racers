@@ -82,7 +82,7 @@ public partial class WingSuitController : CharacterBody3D
             }
             else
             {
-                PitchInput = Mathf.Lerp(PitchInput, 0, YawRate * (float)delta);
+                PitchInput = Mathf.Lerp(PitchInput, 0, (YawRate * 0.25f) * (float)delta);
             }
         }
         RiseMeter = Mathf.Clamp(RiseMeter, RiseMeterMin, RiseMeterMax);
