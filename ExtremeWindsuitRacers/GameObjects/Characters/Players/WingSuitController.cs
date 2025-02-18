@@ -82,20 +82,20 @@ public partial class WingSuitController : CharacterBody3D
             }
             else
             {
-                PitchInput = 0;
+                PitchInput = Mathf.Lerp(PitchInput, 0, YawRate * (float)delta);
             }
         }
         RiseMeter = Mathf.Clamp(RiseMeter, RiseMeterMin, RiseMeterMax);
 
         AcceleratedSpeed = Mathf.Abs(CurrentSpeed + (PitchInput * -Acceleration));
 
-        if (PitchInput != 0)
+        if (PitchInput < 0)
         {
             CurrentSpeed = (float)Mathf.Lerp(CurrentSpeed, AcceleratedSpeed, (float)delta * 6);
         }
         else
         {
-            CurrentSpeed = (float)Mathf.Lerp(CurrentSpeed, MinSpeed, (float)delta * 0.1f);
+            CurrentSpeed = (float)Mathf.Lerp(CurrentSpeed, CurrentSpeed / 4, (float)delta * 0.1f);
         }
         CurrentSpeed = Mathf.Clamp(CurrentSpeed, MinSpeed, MaxSpeed);
 
@@ -118,7 +118,8 @@ public partial class WingSuitController : CharacterBody3D
         }
         else
         {
-            Yaw = Mathf.LerpAngle(Yaw, 0, YawRate * (float)delta);
+            Yaw = Mathf.Lerp(Yaw, 0, YawRate * (float)delta);
+            GD.Print("Stop turning!");
         }
         Yaw = Mathf.Clamp(Yaw, -YawAnglePerSecond, YawAnglePerSecond);
     }
@@ -136,7 +137,16 @@ public partial class WingSuitController : CharacterBody3D
         RotationalTween = GetTree().CreateTween().SetEase(Tween.EaseType.Out).SetParallel(true);
 
         RotationalTween.TweenProperty(PlayerMesh, "rotation_degrees:z", YawInput * 45, .5f);
-        RotationalTween.TweenProperty(this, "rotation_degrees:x", PitchInput * MaxPitchAngleDegrees, .75f);
+
+        if (PitchInput < 0)
+        {
+            RotationalTween.TweenProperty(this, "rotation_degrees:x", PitchInput * MaxPitchAngleDegrees, .75f);
+        }
+        else
+        {
+            RotationalTween.TweenProperty(this, "rotation_degrees:x", PitchInput * 0, .75f);
+        }
+
         RotationalTween.TweenProperty(this, "rotation_degrees:y", Yaw, 0.2f).AsRelative();
     }
 
