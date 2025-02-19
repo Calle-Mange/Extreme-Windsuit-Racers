@@ -142,7 +142,7 @@ public partial class WingSuitController : CharacterBody3D
         {
             RotationalTween.TweenProperty(this, "rotation_degrees:x", PitchInput * MaxPitchAngleDegrees, .75f);
         }
-        else
+        else if (PitchInput > 0)
         {
             RotationalTween.TweenProperty(this, "rotation_degrees:x", PitchInput * 0, .75f);
         }
