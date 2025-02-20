@@ -8,7 +8,7 @@ public partial class WingSuitController : CharacterBody3D
     #endregion
 
     #region Exports
-    [Export] float GravityCustom = 10f;
+    [Export] float GravityCustom = 750f;
     [Export] float MaxSpeed = 100.0f;
     [Export] float MinSpeed = 10.0f;
     [Export] float Acceleration = 5.0f;
@@ -70,23 +70,6 @@ public partial class WingSuitController : CharacterBody3D
         Vector3 velocity = Velocity;
         ForwardDirection = Basis.Z * -1;
 
-        if (PitchInput < 0)
-        {
-            RiseMeter += 2 * (float)delta;
-        }
-        else if (PitchInput > 0)
-        {
-            if (RiseMeter > 0)
-            {
-                RiseMeter -= 2 * (float)delta;
-            }
-            else
-            {
-                PitchInput = Mathf.Lerp(PitchInput, 0, (YawRate * 0.25f) * (float)delta);
-            }
-        }
-        RiseMeter = Mathf.Clamp(RiseMeter, RiseMeterMin, RiseMeterMax);
-
         AcceleratedSpeed = Mathf.Abs(CurrentSpeed + (PitchInput * -Acceleration));
 
         if (PitchInput < 0)
@@ -95,12 +78,14 @@ public partial class WingSuitController : CharacterBody3D
         }
         else
         {
+            PitchInput = Mathf.Lerp(PitchInput, 0, (YawRate * 0.25f) * (float)delta);
             CurrentSpeed = (float)Mathf.Lerp(CurrentSpeed, CurrentSpeed / 4, (float)delta * 0.1f);
         }
+
         CurrentSpeed = Mathf.Clamp(CurrentSpeed, MinSpeed, MaxSpeed);
 
         velocity = ForwardDirection * CurrentSpeed;
-        velocity.Y -= GravityCustom * 10 * (float)delta;
+        velocity.Y -= GravityCustom * (float)delta;
 
         Velocity = velocity;
         MoveAndSlide();
@@ -119,7 +104,6 @@ public partial class WingSuitController : CharacterBody3D
         else
         {
             Yaw = Mathf.Lerp(Yaw, 0, YawRate * (float)delta);
-            GD.Print("Stop turning!");
         }
         Yaw = Mathf.Clamp(Yaw, -YawAnglePerSecond, YawAnglePerSecond);
     }
