@@ -8,16 +8,16 @@ public partial class WingSuitMomentumController : CharacterBody3D
     #endregion
 
     #region Exports
-    [Export] float GravityCustom = 750f;
-    [Export] float MaxSpeed = 100.0f;
-    [Export] float MaxFallSpeed = -100.0f;
-    [Export] float Acceleration = 5.0f;
+    [Export] float GravityCustom = 1200f;
+    [Export] float MaxSpeed = 200.0f;
+    [Export] float MaxFallSpeed = -1200.0f;
+    [Export] float Acceleration = 10.0f;
     [Export] float MaxPitchAngleDegrees = 80.0f;
     [Export] float YawAnglePerSecond = 20.0f;
     #endregion
 
     #region Floats
-    float CurrentSpeed = .0f;
+    float CurrentSpeed = 1.0f;
     float MaxAcceleration;
     float AcceleratedSpeed;
     float PitchInput = .0f;
@@ -30,31 +30,58 @@ public partial class WingSuitMomentumController : CharacterBody3D
     Vector2 TurnInput;
     #endregion
 
+    #region Enums
+    enum PlayerState
+    {
+        Alive,
+        Dead
+    }
+    PlayerState CurrentPlayerState;
+    #endregion
+
     #region Nodes
     MeshInstance3D PlayerMesh;
     Tween RotationalTween;
+    RigidBody3D BodyPart;
     #endregion
 
     public override void _Ready()
     {
-        PlayerMesh = GetNode<MeshInstance3D>("MeshInstance3D");
+        PlayerMesh = GetNode<MeshInstance3D>("Armature/Skeleton3D/Body");
         MaxAcceleration = Acceleration;
+        CurrentPlayerState = PlayerState.Alive;
     }
 
     public override void _PhysicsProcess(double delta)
 	{
-        HandleInput();
-        HandlePhysics(delta);
-        HandleRotation(delta);
-        HandleAnimation();
+        if (CurrentPlayerState == PlayerState.Alive)
+        {
+            HandleInput();
+            HandlePhysics(delta);
+            HandleCollision();
+            HandleRotation(delta);
+            HandleAnimation();
+        }
+
+        if (CurrentPlayerState == PlayerState.Dead)
+        {
+
+        }
 	}
 
+    /// <summary>
+    /// Handles input from player to determine pitch and yaw.
+    /// </summary>
     private void HandleInput()
     {
         PitchInput = TurnInput.Y * -1;
         YawInput = TurnInput.X * -1;
     }
 
+    /// <summary>
+    /// Handles physics for the wingsuit movement. Rise meter determines how high player can go after building up speed downwards.
+    /// </summary>
+    /// <param name="delta">Delta used for calculating physics per second instead of frame.</param>
     private void HandlePhysics(double delta)
     {
         Vector3 velocity = Velocity;
@@ -62,31 +89,46 @@ public partial class WingSuitMomentumController : CharacterBody3D
 
         AcceleratedSpeed = CurrentSpeed + (PitchInput * -Acceleration);
 
-        if (PitchInput < 0)
+        if (CurrentSpeed > 0)
         {
-            Acceleration = (PitchInput / -1.0f) * MaxAcceleration;
-            CurrentSpeed = (float)Mathf.Lerp(CurrentSpeed, AcceleratedSpeed, (float)delta * 8);
-        }
-        else if (PitchInput > 0)
-        {
-            Acceleration = (PitchInput / 1.0f) * MaxAcceleration;
-            CurrentSpeed = (float)Mathf.Lerp(CurrentSpeed, AcceleratedSpeed, (float)delta * 5);
-        }
-        else
-        {
-            Acceleration = MaxAcceleration * 0f;
-        }
+            if (PitchInput < 0)
+            {
+                Acceleration = (PitchInput / -1.0f) * MaxAcceleration;
+                CurrentSpeed = (float)Mathf.Lerp(CurrentSpeed, AcceleratedSpeed, (float)delta * 8);
+            }
+            else if (PitchInput > 0)
+            {
+                if (CurrentSpeed > 0)
+                {
+                    Acceleration = (PitchInput / 1.0f) * MaxAcceleration;
+                    CurrentSpeed = (float)Mathf.Lerp(CurrentSpeed, AcceleratedSpeed, (float)delta * 5);
+                }
+            }
+            else
+            {
+                Acceleration = MaxAcceleration * 0f;
+            }
 
-        CurrentSpeed = Mathf.Clamp(CurrentSpeed, MaxFallSpeed, MaxSpeed);
+            CurrentSpeed = Mathf.Clamp(CurrentSpeed, MaxFallSpeed, MaxSpeed);
 
-        velocity = ForwardDirection * CurrentSpeed;
-        velocity.Y -= GravityCustom * (float)delta;
+            velocity = ForwardDirection * CurrentSpeed;
+            velocity.Y -= GravityCustom * (float)delta;
+        }
+        else if (CurrentSpeed < 0)
+        {
+            velocity.Y -= (GravityCustom / 10) * (float)delta;
+        }
+        
 
         Velocity = velocity;
         MoveAndSlide();
 
     }
 
+    /// <summary>
+    /// Handles Yaw rotation to steer player left and right.
+    /// </summary>
+    /// <param name="delta">Delta used for calculating physics per second instead of frame.</param>
     private void HandleRotation(double delta)
     {
         if (YawInput != 0)
@@ -112,7 +154,7 @@ public partial class WingSuitMomentumController : CharacterBody3D
 
         RotationalTween = GetTree().CreateTween().SetEase(Tween.EaseType.Out).SetParallel(true);
 
-        RotationalTween.TweenProperty(PlayerMesh, "rotation_degrees:z", YawInput * 45, .5f);
+        RotationalTween.TweenProperty(PlayerMesh, "rotation_degrees:z", YawInput * -45, .5f);
 
         if (PitchInput != 0)
         {
@@ -122,8 +164,48 @@ public partial class WingSuitMomentumController : CharacterBody3D
         RotationalTween.TweenProperty(this, "rotation_degrees:y", Yaw, 0.2f).AsRelative();
     }
 
+    /// <summary>
+    /// Handles player collision with terrain. Effect of collision is determined by player speed.
+    /// </summary>
+    private void HandleCollision()
+    {
+        var collision = GetLastSlideCollision();
+
+        if (collision != null)
+        {
+            var colliderType = collision.GetCollider();
+
+            if (colliderType is not StaticBody3D)
+            {
+                return;
+            }
+
+            var colliderPosition = collision.GetPosition();
+
+            if (CurrentSpeed < 0 || CurrentSpeed > 0)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    var bodyPartScene = GD.Load<PackedScene>("res://GameObjects/Characters/Players/PropBall.tscn");
+                    var bodyPart = bodyPartScene.Instantiate<RigidBody3D>();
+                    AddChild(bodyPart);
+                }
+
+                PlayerMesh.Visible = false;
+                CurrentPlayerState = PlayerState.Dead;
+            }
+            else
+            {
+                GD.Print("Soft landing!");
+            }
+            
+        }
+    }
+
     private void OnMouseAnalogInput(Vector2 analog)
 	{
         TurnInput = analog;
     }
+
+    
 }
