@@ -1,10 +1,16 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class WingSuitMomentumController : CharacterBody3D
 {
     #region Constants
     const float YawRate = 4.0f;
+    #endregion
+
+    #region Signals
+    [Signal] public delegate void SignalPlayerDeathEventHandler();
+    [Signal] public delegate void SignalPlayerRespawnEventHandler();
     #endregion
 
     #region Exports
@@ -23,11 +29,15 @@ public partial class WingSuitMomentumController : CharacterBody3D
     float PitchInput = .0f;
     float YawInput = .0f;
     float Yaw = .0f;
+    float RespawnSpeed;
+    float RespawnAcceleration;
+    float RespawnYaw;
     #endregion
 
     #region Vectors
     Vector3 ForwardDirection;
     Vector2 TurnInput;
+    Vector3 RespawnPosition;
     #endregion
 
     #region Enums
@@ -45,11 +55,22 @@ public partial class WingSuitMomentumController : CharacterBody3D
     RigidBody3D BodyPart;
     #endregion
 
+    #region Lists
+    List<RigidBody3D> BodyParts;
+    #endregion
+
     public override void _Ready()
     {
         PlayerMesh = GetNode<MeshInstance3D>("Armature/Skeleton3D/Body");
         MaxAcceleration = Acceleration;
         CurrentPlayerState = PlayerState.Alive;
+
+        RespawnPosition = Position;
+        RespawnSpeed = CurrentSpeed;
+        RespawnAcceleration = Acceleration;
+        RespawnYaw = Yaw;
+
+        BodyParts = new List<RigidBody3D>();
     }
 
     public override void _PhysicsProcess(double delta)
@@ -65,7 +86,7 @@ public partial class WingSuitMomentumController : CharacterBody3D
 
         if (CurrentPlayerState == PlayerState.Dead)
         {
-
+            HandleRespawn();
         }
 	}
 
@@ -189,16 +210,42 @@ public partial class WingSuitMomentumController : CharacterBody3D
                     var bodyPartScene = GD.Load<PackedScene>("res://GameObjects/Characters/Players/PropBall.tscn");
                     var bodyPart = bodyPartScene.Instantiate<RigidBody3D>();
                     AddChild(bodyPart);
+                    BodyParts.Add(bodyPart);
                 }
 
                 PlayerMesh.Visible = false;
                 CurrentPlayerState = PlayerState.Dead;
+                EmitSignal(SignalName.SignalPlayerDeath);
             }
             else
             {
                 GD.Print("Soft landing!");
             }
             
+        }
+    }
+
+    private void HandleRespawn()
+    {
+        if (Input.IsActionJustPressed("respawn_player"))
+        {
+            PlayerMesh.Visible = true;
+            Position = RespawnPosition;
+            CurrentSpeed = RespawnSpeed;
+            Acceleration = RespawnAcceleration;
+            Yaw = RespawnYaw;
+            AcceleratedSpeed = 0f;
+            EmitSignal(SignalName.SignalPlayerRespawn);
+
+            for (int i = 0; i < BodyParts.Count; i++)
+            {
+                GD.Print(BodyParts[i].Name);
+                BodyParts[i].QueueFree();
+            }
+
+            BodyParts.Clear();
+
+            CurrentPlayerState = PlayerState.Alive;
         }
     }
 
