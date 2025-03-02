@@ -9,6 +9,8 @@ public partial class AnalogInputController : Control
 
 	Vector2 MousePosition;
 
+	private Label RespawnLabel;
+
 	[Signal] public delegate void AnalogInputEventHandler(Vector2 analog);
 
 	// Called when the node enters the scene tree for the first time.
@@ -16,6 +18,7 @@ public partial class AnalogInputController : Control
 	{
 		Input.MouseMode = Input.MouseModeEnum.ConfinedHidden;
 		Input.WarpMouse(Position);
+		RespawnLabel = GetNode<Label>("Respawn");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -63,4 +66,14 @@ public partial class AnalogInputController : Control
 		DrawCircle(Vector2.Zero, DeadZone * 100, Colors.Red);
 		DrawCircle(MousePosition, 10, Colors.White);
     }
+
+	private void OnSignalPlayerDeath()
+	{
+		RespawnLabel.Visible = true;
+	}
+
+	private void OnSignalPlayerRespawn()
+	{
+		RespawnLabel.Visible = false;
+	}
 }
