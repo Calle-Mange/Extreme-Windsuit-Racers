@@ -75,9 +75,10 @@ public partial class WingSuitMomentumController : CharacterBody3D
 
     public override void _PhysicsProcess(double delta)
 	{
+        HandleInput();
+
         if (CurrentPlayerState == PlayerState.Alive)
         {
-            HandleInput();
             HandlePhysics(delta);
             HandleCollision();
             HandleRotation(delta);
