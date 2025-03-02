@@ -1,0 +1,29 @@
+[gd_scene load_steps=9 format=3 uid="uid://cv6h20p2j4kso"]
+
+[ext_resource type="PackedScene" uid="uid://cnanvj8j7jyw6" path="res://Assets/Terrain/Test/terrain_test.glb" id="1_0u5jp"]
+[ext_resource type="Shader" path="res://Shaders/TestShader0.gdshader" id="2_ilcn0"]
+[ext_resource type="Texture2D" uid="uid://bmiuvturxjy5o" path="res://Assets/Terrain/Test/grass_mossy.png" id="3_kwe50"]
+[ext_resource type="Texture2D" uid="uid://sr6socipf0bq" path="res://Assets/Terrain/Test/seamless_rock2.png" id="4_7gfo7"]
+[ext_resource type="Texture2D" uid="uid://cxiv1lrlw6hkj" path="res://Assets/Terrain/Test/dirt2.png" id="5_yn00n"]
+[ext_resource type="Texture2D" uid="uid://du3f4ykndxjea" path="res://Assets/Terrain/Test/terrain_mask_RGB_layers.png" id="6_e6dqo"]
+[ext_resource type="Texture2D" uid="uid://beer2svgf1quq" path="res://Assets/Terrain/Test/dry_grass.png" id="7_ppaws"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b71js"]
+render_priority = 0
+shader = ExtResource("2_ilcn0")
+shader_parameter/uv_size = 7.62
+shader_parameter/source_texture_mask = ExtResource("6_e6dqo")
+shader_parameter/source_texture_black = ExtResource("3_kwe50")
+shader_parameter/source_texture_red = ExtResource("7_ppaws")
+shader_parameter/source_texture_green = ExtResource("5_yn00n")
+shader_parameter/source_texture_blue = ExtResource("4_7gfo7")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="terrain_test" parent="." instance=ExtResource("1_0u5jp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.52955, 0, -2.25077)
+
+[node name="plane2" parent="terrain_test" index="0"]
+material_override = SubResource("ShaderMaterial_b71js")
+
+[editable path="terrain_test"]
