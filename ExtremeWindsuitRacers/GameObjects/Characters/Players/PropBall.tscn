@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://0v3yks75ep5o"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vfe58"]
+friction = 0.0
+bounce = 0.25
+
+[sub_resource type="SphereMesh" id="SphereMesh_5f6rd"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_387x0"]
+
+[node name="PropBall" type="RigidBody3D"]
+mass = 5.0
+physics_material_override = SubResource("PhysicsMaterial_vfe58")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_5f6rd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_387x0")
