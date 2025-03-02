@@ -49,7 +49,7 @@ public partial class AnalogInputController : Control
 		{
 			EmitSignal(SignalName.AnalogInput, analog);
 		}
-		else
+		else if (analog.Length() <= DeadZone)
 		{
 			EmitSignal(SignalName.AnalogInput, new Vector2(0, analog.Y));
 		}
