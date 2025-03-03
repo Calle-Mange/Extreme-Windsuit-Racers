@@ -43,7 +43,9 @@ public partial class WingSuitMomentumController : CharacterBody3D
     #region Enums
     enum PlayerState
     {
-        Alive,
+        Gliding,
+        Breaking,
+        Diving,
         Dead
     }
     PlayerState CurrentPlayerState;
@@ -60,7 +62,7 @@ public partial class WingSuitMomentumController : CharacterBody3D
         PlayerMesh = GetNode<MeshInstance3D>("Armature/Skeleton3D/Body");
         PlayerCollider = GetNode<CollisionShape3D>("CollisionShape3D");
         MaxAcceleration = Acceleration;
-        CurrentPlayerState = PlayerState.Alive;
+        CurrentPlayerState = PlayerState.Gliding;
 
         RespawnPosition = Position;
         RespawnSpeed = CurrentSpeed;
@@ -72,7 +74,7 @@ public partial class WingSuitMomentumController : CharacterBody3D
 	{
         HandleInput();
 
-        if (CurrentPlayerState == PlayerState.Alive)
+        if (CurrentPlayerState == PlayerState.Gliding)
         {
             HandlePhysics(delta);
             HandleCollision();
@@ -93,6 +95,31 @@ public partial class WingSuitMomentumController : CharacterBody3D
     {
         PitchInput = TurnInput.Y * -1;
         YawInput = TurnInput.X * -1;
+
+        if (Input.IsActionJustPressed("dive"))
+        {
+            if (CurrentPlayerState == PlayerState.Diving)
+            {
+                CurrentPlayerState = PlayerState.Gliding;
+            }
+            else
+            {
+                CurrentPlayerState = PlayerState.Diving;
+            }
+
+        }
+
+        if (Input.IsActionJustPressed("break"))
+        {
+            if (CurrentPlayerState == PlayerState.Breaking)
+            {
+                CurrentPlayerState = PlayerState.Gliding;
+            }
+            else
+            {
+                CurrentPlayerState = PlayerState.Breaking;
+            }
+        }
     }
 
     /// <summary>
@@ -140,6 +167,22 @@ public partial class WingSuitMomentumController : CharacterBody3D
         Velocity = velocity;
         MoveAndSlide();
 
+    }
+
+    private void HandleGliding(Vector3 velocity, float delta)
+    {
+        //Move standard gliding here
+    }
+
+    private void HandleDiving(Vector3 velocity, float delta)
+    {
+        //Diving logic here. Pitch can only aim down, and acceleration is increased and a speed boost is given.
+    }
+
+    private void HandleBreaking(Vector3 velocity, float delta)
+    {
+        //Reduce speed in opposite direction of forward until speed reaches 0, at which point the player will fall down. 
+        //Activating glide or dive here gives a speedboost to get player started again
     }
 
     /// <summary>
@@ -232,7 +275,7 @@ public partial class WingSuitMomentumController : CharacterBody3D
             PlayerCollider.SetProcess(true);
             EmitSignal(SignalName.SignalPlayerRespawn);
       
-            CurrentPlayerState = PlayerState.Alive;
+            CurrentPlayerState = PlayerState.Gliding;
         }
     }
 
