@@ -52,16 +52,13 @@ public partial class WingSuitMomentumController : CharacterBody3D
     #region Nodes
     MeshInstance3D PlayerMesh;
     Tween RotationalTween;
-    RigidBody3D BodyPart;
-    #endregion
-
-    #region Lists
-    List<RigidBody3D> BodyParts;
+    CollisionShape3D PlayerCollider;
     #endregion
 
     public override void _Ready()
     {
         PlayerMesh = GetNode<MeshInstance3D>("Armature/Skeleton3D/Body");
+        PlayerCollider = GetNode<CollisionShape3D>("CollisionShape3D");
         MaxAcceleration = Acceleration;
         CurrentPlayerState = PlayerState.Alive;
 
@@ -69,8 +66,6 @@ public partial class WingSuitMomentumController : CharacterBody3D
         RespawnSpeed = CurrentSpeed;
         RespawnAcceleration = Acceleration;
         RespawnYaw = Yaw;
-
-        BodyParts = new List<RigidBody3D>();
     }
 
     public override void _PhysicsProcess(double delta)
@@ -206,14 +201,12 @@ public partial class WingSuitMomentumController : CharacterBody3D
 
             if (CurrentSpeed < 0 || CurrentSpeed > 0)
             {
-                for (int i = 0; i < 5; i++)
-                {
-                    var bodyPartScene = GD.Load<PackedScene>("res://GameObjects/Characters/Players/PropBall.tscn");
-                    var bodyPart = bodyPartScene.Instantiate<RigidBody3D>();
-                    AddChild(bodyPart);
-                    BodyParts.Add(bodyPart);
-                }
+                var bodyPartsScene = GD.Load<PackedScene>("res://GameObjects/Characters/Players/PlayerBodyParts.tscn");
+                var bodyParts = bodyPartsScene.Instantiate<Node3D>();
+                GetParent().AddChild(bodyParts);
+                bodyParts.Transform = Transform;
 
+                PlayerCollider.SetProcess(false);
                 PlayerMesh.Visible = false;
                 CurrentPlayerState = PlayerState.Dead;
                 EmitSignal(SignalName.SignalPlayerDeath);
@@ -235,17 +228,10 @@ public partial class WingSuitMomentumController : CharacterBody3D
             CurrentSpeed = RespawnSpeed;
             Acceleration = RespawnAcceleration;
             Yaw = RespawnYaw;
-            AcceleratedSpeed = 0f;
+            AcceleratedSpeed = 5f;
+            PlayerCollider.SetProcess(true);
             EmitSignal(SignalName.SignalPlayerRespawn);
-
-            for (int i = 0; i < BodyParts.Count; i++)
-            {
-                GD.Print(BodyParts[i].Name);
-                BodyParts[i].QueueFree();
-            }
-
-            BodyParts.Clear();
-
+      
             CurrentPlayerState = PlayerState.Alive;
         }
     }
