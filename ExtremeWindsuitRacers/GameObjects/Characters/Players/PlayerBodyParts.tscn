@@ -1,8 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://ckaxygqerrtpi"]
+[gd_scene load_steps=3 format=3 uid="uid://ckaxygqerrtpi"]
 
 [ext_resource type="PackedScene" uid="uid://0v3yks75ep5o" path="res://GameObjects/Characters/Players/PropBall.tscn" id="1_2igi6"]
+[ext_resource type="Script" path="res://GameObjects/Characters/Players/BodyPartSplatter.cs" id="1_katxx"]
 
 [node name="PlayerBodyParts" type="Node3D"]
+script = ExtResource("1_katxx")
+
+[node name="SplatterCenter" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0227684)
 
 [node name="Head" parent="." instance=ExtResource("1_2igi6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.624739)
@@ -11,10 +16,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.624739)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0391806)
 
 [node name="LeftLeg" parent="." instance=ExtResource("1_2igi6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.80436, 0, 0.770248)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.461745, 0, 0.770248)
 
 [node name="RightLeg" parent="." instance=ExtResource("1_2igi6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.778871, 0, 0.770248)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.409329, 0, 0.770248)
 
 [node name="RightArm" parent="." instance=ExtResource("1_2igi6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.792636, 0, -0.0391806)
