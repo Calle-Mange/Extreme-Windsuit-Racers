@@ -74,15 +74,14 @@ public partial class WingSuitMomentumController : CharacterBody3D
 	{
         HandleInput();
 
-        if (CurrentPlayerState == PlayerState.Gliding)
+        if (CurrentPlayerState != PlayerState.Dead)
         {
             HandlePhysics(delta);
             HandleCollision();
             HandleRotation(delta);
             HandleAnimation();
         }
-
-        if (CurrentPlayerState == PlayerState.Dead)
+        else
         {
             HandleRespawn();
         }
@@ -107,6 +106,7 @@ public partial class WingSuitMomentumController : CharacterBody3D
                 CurrentPlayerState = PlayerState.Diving;
             }
 
+            GD.Print(CurrentPlayerState);
         }
 
         if (Input.IsActionJustPressed("break"))
@@ -119,6 +119,8 @@ public partial class WingSuitMomentumController : CharacterBody3D
             {
                 CurrentPlayerState = PlayerState.Breaking;
             }
+
+            GD.Print(CurrentPlayerState);
         }
     }
 
@@ -130,7 +132,26 @@ public partial class WingSuitMomentumController : CharacterBody3D
     {
         Vector3 velocity = Velocity;
         ForwardDirection = Basis.Z * -1;
+        
+        if (CurrentPlayerState == PlayerState.Gliding)
+        {
+            Velocity = HandleGliding(velocity, delta);
+        }
+        else if (CurrentPlayerState == PlayerState.Breaking)
+        {
+            Velocity = HandleBreaking(velocity, delta);
+        }
+        else if (CurrentPlayerState == PlayerState.Diving)
+        {
+            Velocity = HandleDiving(velocity, delta);
+        }
 
+
+        MoveAndSlide();
+    }
+
+    private Vector3 HandleGliding(Vector3 velocity, double delta)
+    {
         AcceleratedSpeed = CurrentSpeed + (PitchInput * -Acceleration);
 
         if (CurrentSpeed > 0)
@@ -162,27 +183,91 @@ public partial class WingSuitMomentumController : CharacterBody3D
         {
             velocity.Y -= (GravityCustom / 10) * (float)delta;
         }
-        
 
-        Velocity = velocity;
-        MoveAndSlide();
-
+        return velocity;
     }
 
-    private void HandleGliding(Vector3 velocity, float delta)
+    private Vector3 HandleDiving(Vector3 velocity, double delta)
     {
-        //Move standard gliding here
+        //Limited pitch input to negative values. Remove ability to alter yaw.
+        float maxDiveSpeed = MaxSpeed * 5;
+        float maxDiveAcceleration = MaxAcceleration * 5;
+
+        AcceleratedSpeed = CurrentSpeed + (PitchInput * -Acceleration);
+
+        if (CurrentSpeed > 0)
+        {
+            if (PitchInput < 0)
+            {
+                Acceleration = (PitchInput / -1.0f) * maxDiveAcceleration;
+                CurrentSpeed = (float)Mathf.Lerp(CurrentSpeed, AcceleratedSpeed, (float)delta * 8);
+            }
+            else if (PitchInput > 0)
+            {
+                if (CurrentSpeed > 0)
+                {
+                    Acceleration = (PitchInput / 1.0f) * maxDiveAcceleration;
+                    CurrentSpeed = (float)Mathf.Lerp(CurrentSpeed, AcceleratedSpeed, (float)delta * 5);
+                }
+            }
+            else
+            {
+                Acceleration = maxDiveAcceleration * 0f;
+            }
+
+            CurrentSpeed = Mathf.Clamp(CurrentSpeed, MaxFallSpeed, maxDiveSpeed);
+
+            velocity = ForwardDirection * CurrentSpeed;
+            velocity.Y -= GravityCustom * (float)delta;
+        }
+        else if (CurrentSpeed < 0)
+        {
+            velocity.Y -= (GravityCustom / 10) * (float)delta;
+        }
+
+        return velocity;
     }
 
-    private void HandleDiving(Vector3 velocity, float delta)
-    {
-        //Diving logic here. Pitch can only aim down, and acceleration is increased and a speed boost is given.
-    }
-
-    private void HandleBreaking(Vector3 velocity, float delta)
+    private Vector3 HandleBreaking(Vector3 velocity, double delta)
     {
         //Reduce speed in opposite direction of forward until speed reaches 0, at which point the player will fall down. 
         //Activating glide or dive here gives a speedboost to get player started again
+
+        AcceleratedSpeed = CurrentSpeed + (PitchInput * -Acceleration);
+        float maxBreakSpeed = MaxSpeed * 0.2f;
+        float maxBreakAcceleration = MaxAcceleration * 0.2f;
+
+        if (CurrentSpeed > 0)
+        {
+            if (PitchInput < 0)
+            {
+                Acceleration = (PitchInput / -1.0f) * maxBreakAcceleration;
+                CurrentSpeed = (float)Mathf.Lerp(CurrentSpeed, AcceleratedSpeed, (float)delta * 8);
+            }
+            else if (PitchInput > 0)
+            {
+                if (CurrentSpeed > 0)
+                {
+                    Acceleration = (PitchInput / 1.0f) * maxBreakAcceleration;
+                    CurrentSpeed = (float)Mathf.Lerp(CurrentSpeed, AcceleratedSpeed, (float)delta * 5);
+                }
+            }
+            else
+            {
+                Acceleration = maxBreakAcceleration * 0f;
+            }
+
+            CurrentSpeed = Mathf.Clamp(CurrentSpeed, MaxFallSpeed, maxBreakSpeed);
+
+            velocity = ForwardDirection * CurrentSpeed;
+            velocity.Y -= GravityCustom * (float)delta;
+        }
+        else if (CurrentSpeed < 0)
+        {
+            velocity.Y -= (GravityCustom / 10) * (float)delta;
+        }
+
+        return velocity;
     }
 
     /// <summary>
