@@ -2,18 +2,22 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vfe58"]
 friction = 0.0
-bounce = 0.25
+bounce = 0.63
 
 [sub_resource type="SphereMesh" id="SphereMesh_5f6rd"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_387x0"]
 
 [node name="PropBall" type="RigidBody3D"]
+collision_layer = 4
+collision_mask = 6
 mass = 5.0
 physics_material_override = SubResource("PhysicsMaterial_vfe58")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 mesh = SubResource("SphereMesh_5f6rd")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 shape = SubResource("SphereShape3D_387x0")

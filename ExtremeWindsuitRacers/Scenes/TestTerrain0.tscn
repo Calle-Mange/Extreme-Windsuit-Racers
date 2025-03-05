@@ -26,4 +26,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.52955, 0, -2.25077)
 [node name="plane2" parent="terrain_test" index="0"]
 material_override = SubResource("ShaderMaterial_b71js")
 
+[node name="plane2" parent="terrain_test/plane2" index="0"]
+collision_layer = 2
+collision_mask = 5
+
 [editable path="terrain_test"]
