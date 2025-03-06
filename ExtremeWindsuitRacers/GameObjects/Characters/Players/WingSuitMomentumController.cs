@@ -28,6 +28,7 @@ public partial class WingSuitMomentumController : CharacterBody3D
     float AcceleratedSpeed;
     float PitchInput = .0f;
     float YawInput = .0f;
+    float PitchDiveDirection = .0f;
     float Yaw = .0f;
     float RespawnSpeed;
     float RespawnAcceleration;
@@ -114,6 +115,7 @@ public partial class WingSuitMomentumController : CharacterBody3D
             if (CurrentPlayerState == PlayerState.Breaking)
             {
                 CurrentPlayerState = PlayerState.Gliding;
+                CurrentSpeed += 40;
             }
             else
             {
@@ -190,8 +192,10 @@ public partial class WingSuitMomentumController : CharacterBody3D
     private Vector3 HandleDiving(Vector3 velocity, double delta)
     {
         //Limited pitch input to negative values. Remove ability to alter yaw.
-        float maxDiveSpeed = MaxSpeed * 5;
-        float maxDiveAcceleration = MaxAcceleration * 5;
+        float maxDiveSpeed = MaxSpeed * 3;
+        float maxDiveAcceleration = MaxAcceleration * 3;
+
+        PitchInput = Mathf.Clamp(PitchInput, -0.95f, -0.45f);
 
         AcceleratedSpeed = CurrentSpeed + (PitchInput * -Acceleration);
 
@@ -201,18 +205,6 @@ public partial class WingSuitMomentumController : CharacterBody3D
             {
                 Acceleration = (PitchInput / -1.0f) * maxDiveAcceleration;
                 CurrentSpeed = (float)Mathf.Lerp(CurrentSpeed, AcceleratedSpeed, (float)delta * 8);
-            }
-            else if (PitchInput > 0)
-            {
-                if (CurrentSpeed > 0)
-                {
-                    Acceleration = (PitchInput / 1.0f) * maxDiveAcceleration;
-                    CurrentSpeed = (float)Mathf.Lerp(CurrentSpeed, AcceleratedSpeed, (float)delta * 5);
-                }
-            }
-            else
-            {
-                Acceleration = maxDiveAcceleration * 0f;
             }
 
             CurrentSpeed = Mathf.Clamp(CurrentSpeed, MaxFallSpeed, maxDiveSpeed);
@@ -234,8 +226,9 @@ public partial class WingSuitMomentumController : CharacterBody3D
         //Activating glide or dive here gives a speedboost to get player started again
 
         AcceleratedSpeed = CurrentSpeed + (PitchInput * -Acceleration);
-        float maxBreakSpeed = MaxSpeed * 0.2f;
-        float maxBreakAcceleration = MaxAcceleration * 0.2f;
+        float maxBreakSpeed = MaxSpeed * 0.05f;
+        float maxBreakAcceleration = MaxAcceleration * 0.05f;
+        PitchInput = Mathf.Clamp(PitchInput, -0.95f, 0.01f);
 
         if (CurrentSpeed > 0)
         {
@@ -276,15 +269,23 @@ public partial class WingSuitMomentumController : CharacterBody3D
     /// <param name="delta">Delta used for calculating physics per second instead of frame.</param>
     private void HandleRotation(double delta)
     {
-        if (YawInput != 0)
+        if (CurrentPlayerState != PlayerState.Diving)
         {
-            Yaw += YawInput;
+            if (YawInput != 0)
+            {
+                Yaw += YawInput;
+            }
+            else
+            {
+                Yaw = Mathf.Lerp(Yaw, 0, YawRate * (float)delta);
+            }
+            Yaw = Mathf.Clamp(Yaw, -YawAnglePerSecond, YawAnglePerSecond);
         }
         else
         {
-            Yaw = Mathf.Lerp(Yaw, 0, YawRate * (float)delta);
+            Yaw = 0;
         }
-        Yaw = Mathf.Clamp(Yaw, -YawAnglePerSecond, YawAnglePerSecond);
+
     }
 
     /// <summary>
