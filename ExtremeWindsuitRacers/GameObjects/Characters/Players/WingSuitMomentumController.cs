@@ -16,6 +16,7 @@ public partial class WingSuitMomentumController : CharacterBody3D
     #region Exports
     [Export] float GravityCustom = 1200f;
     [Export] float MaxSpeed = 200.0f;
+    [Export] float MinGlideSpeed = 50.0f;
     [Export] float MaxFallSpeed = -1200.0f;
     [Export] float Acceleration = 10.0f;
     [Export] float MaxPitchAngleDegrees = 80.0f;
@@ -120,7 +121,6 @@ public partial class WingSuitMomentumController : CharacterBody3D
             if (CurrentPlayerState == PlayerState.Breaking)
             {
                 CurrentPlayerState = PlayerState.Gliding;
-                CurrentSpeed += 40;
                 AnimationStateMachinePlayback.Travel("flight_animation");
             }
             else
@@ -169,6 +169,11 @@ public partial class WingSuitMomentumController : CharacterBody3D
             {
                 Acceleration = (PitchInput / -1.0f) * MaxAcceleration;
                 CurrentSpeed = (float)Mathf.Lerp(CurrentSpeed, AcceleratedSpeed, (float)delta * 8);
+
+                if (CurrentSpeed < MinGlideSpeed)
+                {
+                    CurrentSpeed = Mathf.Lerp(CurrentSpeed, MinGlideSpeed, (float)delta * 8);
+                }
             }
             else if (PitchInput > 0)
             {
@@ -183,7 +188,10 @@ public partial class WingSuitMomentumController : CharacterBody3D
                 Acceleration = MaxAcceleration * 0f;
             }
 
-            CurrentSpeed = Mathf.Clamp(CurrentSpeed, MaxFallSpeed, MaxSpeed);
+            if (CurrentSpeed > MaxSpeed)
+            {
+                CurrentSpeed = Mathf.Lerp(CurrentSpeed, MaxSpeed, (float)delta * 8);
+            }
 
             velocity = ForwardDirection * CurrentSpeed;
             velocity.Y -= GravityCustom * (float)delta;
@@ -202,7 +210,7 @@ public partial class WingSuitMomentumController : CharacterBody3D
         float maxDiveSpeed = MaxSpeed * 3;
         float maxDiveAcceleration = MaxAcceleration * 3;
 
-        PitchInput = Mathf.Clamp(PitchInput, -0.95f, -0.45f);
+        PitchInput = Mathf.Clamp(PitchInput, -0.95f, -0.75f);
 
         AcceleratedSpeed = CurrentSpeed + (PitchInput * -Acceleration);
 
@@ -214,7 +222,10 @@ public partial class WingSuitMomentumController : CharacterBody3D
                 CurrentSpeed = (float)Mathf.Lerp(CurrentSpeed, AcceleratedSpeed, (float)delta * 8);
             }
 
-            CurrentSpeed = Mathf.Clamp(CurrentSpeed, MaxFallSpeed, maxDiveSpeed);
+            if (CurrentSpeed > maxDiveSpeed)
+            {
+                CurrentSpeed = Mathf.Lerp(CurrentSpeed, maxDiveSpeed, (float)delta * 8);
+            }
 
             velocity = ForwardDirection * CurrentSpeed;
             velocity.Y -= GravityCustom * (float)delta;
@@ -249,7 +260,7 @@ public partial class WingSuitMomentumController : CharacterBody3D
                 if (CurrentSpeed > 0)
                 {
                     Acceleration = (PitchInput / 1.0f) * maxBreakAcceleration;
-                    CurrentSpeed = (float)Mathf.Lerp(CurrentSpeed, AcceleratedSpeed, (float)delta * 5);
+                    CurrentSpeed = (float)Mathf.Lerp(CurrentSpeed, AcceleratedSpeed, (float)delta * 3);
                 }
             }
             else
@@ -257,7 +268,10 @@ public partial class WingSuitMomentumController : CharacterBody3D
                 Acceleration = maxBreakAcceleration * 0f;
             }
 
-            CurrentSpeed = Mathf.Clamp(CurrentSpeed, MaxFallSpeed, maxBreakSpeed);
+            if (CurrentSpeed > maxBreakSpeed)
+            {
+                CurrentSpeed = Mathf.Lerp(CurrentSpeed, maxBreakSpeed, (float)delta * 5);
+            }
 
             velocity = ForwardDirection * CurrentSpeed;
             velocity.Y -= GravityCustom * (float)delta;
