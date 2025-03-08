@@ -56,12 +56,14 @@ public partial class WingSuitMomentumController : CharacterBody3D
     MeshInstance3D PlayerMesh;
     Tween RotationalTween;
     CollisionShape3D PlayerCollider;
+    AnimationTree AnimationTree;
     #endregion
 
     public override void _Ready()
     {
         PlayerMesh = GetNode<MeshInstance3D>("Armature/Skeleton3D/Body");
         PlayerCollider = GetNode<CollisionShape3D>("CollisionShape3D");
+        AnimationTree = GetNode<AnimationTree>("AnimationTree");
         MaxAcceleration = Acceleration;
         CurrentPlayerState = PlayerState.Gliding;
 
@@ -105,6 +107,7 @@ public partial class WingSuitMomentumController : CharacterBody3D
             else
             {
                 CurrentPlayerState = PlayerState.Diving;
+                AnimationTree.Set("parameters/PlayDiveAnimation/request", (int)AnimationNodeOneShot.OneShotRequest.Fire);
             }
 
             GD.Print(CurrentPlayerState);
