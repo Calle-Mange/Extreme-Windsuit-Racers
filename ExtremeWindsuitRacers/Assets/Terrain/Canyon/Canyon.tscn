@@ -1,0 +1,30 @@
+[gd_scene load_steps=8 format=3 uid="uid://crk68w6k820us"]
+
+[ext_resource type="PackedScene" uid="uid://chvp638tvu8la" path="res://Assets/Terrain/Canyon/canyon.glb" id="1_iuqqu"]
+[ext_resource type="Shader" path="res://Shaders/TestShader0.gdshader" id="2_o0joe"]
+[ext_resource type="Texture2D" uid="uid://ltte2ijtm3tk" path="res://Textures/ClifSide/rock_face_03_diff_4k.png" id="3_s3ylm"]
+[ext_resource type="Texture2D" uid="uid://dkbepa8ewiwsg" path="res://Textures/ClifSide/aerial_rocks_04_diff_4k.png" id="4_ccm0i"]
+[ext_resource type="Texture2D" uid="uid://bjovayayrkjix" path="res://Textures/ClifSide/lichen_rock_diff_4k.png" id="5_goy2i"]
+[ext_resource type="Texture2D" uid="uid://lcyu4665x3wh" path="res://Textures/ClifSide/terrain_mask_RGB_layers.003.png" id="6_oy3e8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hlyob"]
+render_priority = 0
+shader = ExtResource("2_o0joe")
+shader_parameter/uv_size = 1.0
+shader_parameter/source_texture_mask = ExtResource("6_oy3e8")
+shader_parameter/source_texture_black = ExtResource("3_s3ylm")
+shader_parameter/source_texture_red = ExtResource("4_ccm0i")
+shader_parameter/source_texture_green = ExtResource("5_goy2i")
+shader_parameter/source_texture_blue = ExtResource("4_ccm0i")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="canyon2" parent="." instance=ExtResource("1_iuqqu")]
+
+[node name="canyon" parent="canyon2" index="0"]
+material_override = SubResource("ShaderMaterial_hlyob")
+
+[node name="canyon" parent="canyon2/canyon" index="0"]
+visible = false
+
+[editable path="canyon2"]
