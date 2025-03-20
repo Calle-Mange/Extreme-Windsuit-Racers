@@ -1,0 +1,28 @@
+[gd_scene load_steps=9 format=3 uid="uid://hsokmigq8ine"]
+
+[ext_resource type="PackedScene" uid="uid://c1yn83fj0dv7h" path="res://Assets/Terrain/Terrain/GeneratedTerrain.glb" id="1_ua5r4"]
+[ext_resource type="Shader" path="res://Shaders/TestShader0.gdshader" id="2_d776r"]
+[ext_resource type="Texture2D" uid="uid://dkbepa8ewiwsg" path="res://Textures/ClifSide/aerial_rocks_04_diff_4k.png" id="3_2ytls"]
+[ext_resource type="Texture2D" uid="uid://ltte2ijtm3tk" path="res://Textures/ClifSide/rock_face_03_diff_4k.png" id="4_dl7lh"]
+[ext_resource type="Texture2D" uid="uid://dw4iuwphgxg2y" path="res://Textures/ClifSide/mossy_rock_diff_4k.png" id="5_xay2e"]
+[ext_resource type="Texture2D" uid="uid://lcyu4665x3wh" path="res://Textures/ClifSide/terrain_mask_RGB_layers.003.png" id="6_irsdi"]
+[ext_resource type="Texture2D" uid="uid://bjovayayrkjix" path="res://Textures/ClifSide/lichen_rock_diff_4k.png" id="7_0n12q"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_werfh"]
+render_priority = 0
+shader = ExtResource("2_d776r")
+shader_parameter/uv_size = 4.7
+shader_parameter/source_texture_mask = ExtResource("6_irsdi")
+shader_parameter/source_texture_black = ExtResource("3_2ytls")
+shader_parameter/source_texture_red = ExtResource("7_0n12q")
+shader_parameter/source_texture_green = ExtResource("5_xay2e")
+shader_parameter/source_texture_blue = ExtResource("4_dl7lh")
+
+[node name="TESTO" type="Node3D"]
+
+[node name="GeneratedTerrain" parent="." instance=ExtResource("1_ua5r4")]
+
+[node name="Plane" parent="GeneratedTerrain" index="0"]
+material_override = SubResource("ShaderMaterial_werfh")
+
+[editable path="GeneratedTerrain"]
