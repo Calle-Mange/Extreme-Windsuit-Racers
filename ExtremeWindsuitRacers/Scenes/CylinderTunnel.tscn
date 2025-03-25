@@ -1,0 +1,32 @@
+[gd_scene load_steps=9 format=3 uid="uid://b2q7h21khauoa"]
+
+[ext_resource type="PackedScene" uid="uid://0u3srx6yq7dg" path="res://Assets/Terrain/Shape/Cylinder.glb" id="1_hv6us"]
+[ext_resource type="Shader" path="res://Shaders/TestShader0.gdshader" id="2_vc6q3"]
+[ext_resource type="Texture2D" uid="uid://sr6socipf0bq" path="res://Assets/Terrain/Test/seamless_rock2.png" id="3_182b6"]
+[ext_resource type="Texture2D" uid="uid://bmiuvturxjy5o" path="res://Assets/Terrain/Test/grass_mossy.png" id="4_wnlmq"]
+[ext_resource type="Texture2D" uid="uid://dolt8kqr3kcfd" path="res://Assets/Terrain/Shape/cylinder_terrain_mask.png" id="5_3puhw"]
+[ext_resource type="Texture2D" uid="uid://cxiv1lrlw6hkj" path="res://Assets/Terrain/Test/dirt2.png" id="6_i00ek"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yguk5"]
+cull_mode = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mfvcy"]
+render_priority = 1
+shader = ExtResource("2_vc6q3")
+shader_parameter/uv_size = 1.15
+shader_parameter/source_texture_mask = ExtResource("5_3puhw")
+shader_parameter/source_texture_black = ExtResource("3_182b6")
+shader_parameter/source_texture_red = ExtResource("6_i00ek")
+shader_parameter/source_texture_green = ExtResource("4_wnlmq")
+shader_parameter/source_texture_blue = ExtResource("3_182b6")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Cylinder2" parent="." instance=ExtResource("1_hv6us")]
+
+[node name="Cylinder" parent="Cylinder2" index="0"]
+material_override = SubResource("StandardMaterial3D_yguk5")
+material_overlay = SubResource("ShaderMaterial_mfvcy")
+lod_bias = 0.001
+
+[editable path="Cylinder2"]
