@@ -37,4 +37,9 @@ public partial class DiveState : MovementState
     {
 
     }
+
+    public override Vector3 CalculateStateMovementVelocity(Vector3 velocity, double delta)
+    {
+        return velocity;
+    }
 }
