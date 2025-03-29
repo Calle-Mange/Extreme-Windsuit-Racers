@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 public partial class AnalogInputController : Control
 {
 	private float Radius = 70f;
-	private float DeadZone = 0.1f;
+	private float DeadZone = 0.25f;
 
 	Vector2 MousePosition;
 
