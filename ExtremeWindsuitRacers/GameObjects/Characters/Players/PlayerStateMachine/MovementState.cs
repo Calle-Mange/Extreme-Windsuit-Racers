@@ -22,6 +22,11 @@ public partial class MovementState : Node
 
     public virtual void StatePhysicsProcess(double delta) { }
 
+    public virtual Vector3 CalculateStateMovementVelocity(Vector3 velocity, double delta) 
+    {
+        return velocity;
+    }
+
     public override void _Process(double delta) { }
 
 }

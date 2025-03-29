@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public partial class MovementStateMachine : Node
 {
 	[Export] public NodePath InitialState;
+	[Export] public CharacterBody3D Body;
 	private Dictionary<string, MovementState> States;
 	private MovementState CurrentState;
 
@@ -35,6 +36,7 @@ public partial class MovementStateMachine : Node
     public override void _PhysicsProcess(double delta)
     {
         CurrentState.StatePhysicsProcess(delta);
+		Body.Velocity = CurrentState.CalculateStateMovementVelocity(Body.Velocity, delta);
     }
 
     public void TransitionTo(string state)
