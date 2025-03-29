@@ -1,0 +1,51 @@
+using Godot;
+using System;
+using System.Collections.Generic;
+
+public partial class MovementStateMachine : Node
+{
+	[Export] public NodePath InitialState;
+	private Dictionary<string, MovementState> States;
+	private MovementState CurrentState;
+
+	public override void _Ready()
+	{
+		States = new Dictionary<string, MovementState>();
+
+		foreach (Node node in GetChildren())
+		{
+			if (node is MovementState state)
+			{
+				States[node.Name] = state;
+				state.MovementStateMachine = this;
+				state.StateReady();
+				state.Exit();
+			}
+		}
+
+		CurrentState = GetNode<MovementState>(InitialState);
+		CurrentState.Enter();
+	}
+
+	public override void _Process(double delta)
+	{
+		CurrentState.StateProcess(delta);
+	}
+
+    public override void _PhysicsProcess(double delta)
+    {
+        CurrentState.StatePhysicsProcess(delta);
+    }
+
+    public void TransitionTo(string state)
+	{
+		if (!States.ContainsKey(state) || CurrentState == States[state])
+		{
+			return;
+		}
+
+		CurrentState.Exit();
+		CurrentState = States[state];
+		CurrentState.Enter();
+	}
+}
