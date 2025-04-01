@@ -4,8 +4,12 @@ using System.Collections.Generic;
 
 public partial class MovementStateMachine : Node
 {
+	[ExportSubgroup("Nodes")]
 	[Export] public NodePath InitialState;
 	[Export] public CharacterBody3D Body;
+	[Export] public Node3D Target;
+
+
 	private Dictionary<string, MovementState> States;
 	private MovementState CurrentState;
 
@@ -19,6 +23,7 @@ public partial class MovementStateMachine : Node
 			{
 				States[node.Name] = state;
 				state.MovementStateMachine = this;
+				state.Body = Body;
 				state.StateReady();
 				state.Exit();
 			}
@@ -37,6 +42,7 @@ public partial class MovementStateMachine : Node
     {
         CurrentState.StatePhysicsProcess(delta);
 		Body.Velocity = CurrentState.CalculateStateMovementVelocity(Body.Velocity, delta);
+		Body.MoveAndSlide();
     }
 
     public void TransitionTo(string state)

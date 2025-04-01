@@ -15,7 +15,7 @@ public partial class DiveState : MovementState
 
     public override void Enter()
     {
-        base.Enter();
+        //Lock pitch to -90 and remove ability to steer.
     }
 
     public override void Exit()
@@ -25,17 +25,18 @@ public partial class DiveState : MovementState
 
     public override void StateReady()
     {
-
+        base.StateReady();
     }
 
     public override void StateProcess(double delta)
     {
-        base.StateReady();
+
     }
 
     public override void StatePhysicsProcess(double delta)
     {
-
+        //Lerp towards target and boost acceleration the closer to the target that you get.
+        base.StatePhysicsProcess(delta);
     }
 
     public override Vector3 CalculateStateMovementVelocity(Vector3 velocity, double delta)
