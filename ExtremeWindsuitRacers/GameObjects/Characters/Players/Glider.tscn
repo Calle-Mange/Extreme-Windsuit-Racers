@@ -1,14 +1,13 @@
-[gd_scene load_steps=26 format=4 uid="uid://hft6v7piwqrt"]
+[gd_scene load_steps=25 format=4 uid="uid://b7sg2uk78j1mk"]
 
-[ext_resource type="Script" path="res://GameObjects/Characters/Players/WingSuitMomentumController.cs" id="1_rjnmt"]
-[ext_resource type="Animation" uid="uid://btax4v1iyfdjr" path="res://Assets/Character/Animation/flight_animation.res" id="2_0o4ql"]
-[ext_resource type="PackedScene" uid="uid://dkojd0mxx5q4y" path="res://GameObjects/Characters/Players/player_hud.tscn" id="2_fojiw"]
-[ext_resource type="Animation" uid="uid://bd0xx07wl72eq" path="res://Assets/Character/Animation/dive_animation.res" id="3_eo1ta"]
-[ext_resource type="Animation" uid="uid://dnxaavx7y4120" path="res://Assets/Character/Animation/break_animation.res" id="4_vccol"]
-[ext_resource type="Script" path="res://GameObjects/Characters/Players/PlayerStateMachine/MovementStateMachine.cs" id="6_gtna8"]
-[ext_resource type="Script" path="res://GameObjects/Characters/Players/PlayerStateMachine/GlideState.cs" id="7_7dmn0"]
-[ext_resource type="Script" path="res://GameObjects/Characters/Players/PlayerStateMachine/DiveState.cs" id="8_ajn4a"]
-[ext_resource type="Script" path="res://GameObjects/Characters/Players/PlayerStateMachine/BreakState.cs" id="9_tyls8"]
+[ext_resource type="Script" path="res://GameObjects/Characters/Players/PlayerStateMachine/MovementStateMachine.cs" id="2_85jub"]
+[ext_resource type="Script" path="res://GameObjects/Characters/Players/PlayerStateMachine/GlideState.cs" id="3_u2e6e"]
+[ext_resource type="Script" path="res://GameObjects/Characters/Players/PlayerStateMachine/DiveState.cs" id="4_ouuxt"]
+[ext_resource type="Script" path="res://GameObjects/Characters/Players/PlayerStateMachine/BreakState.cs" id="5_1regb"]
+[ext_resource type="Animation" uid="uid://dnxaavx7y4120" path="res://Assets/Character/Animation/break_animation.res" id="6_y1fjt"]
+[ext_resource type="Animation" uid="uid://bd0xx07wl72eq" path="res://Assets/Character/Animation/dive_animation.res" id="7_ykolj"]
+[ext_resource type="Animation" uid="uid://btax4v1iyfdjr" path="res://Assets/Character/Animation/flight_animation.res" id="8_8eefh"]
+[ext_resource type="PackedScene" uid="uid://xc14jkafu2h2" path="res://GameObjects/Characters/Players/glide_hud.tscn" id="8_ccfmp"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i6qas"]
 resource_name = "Material.001"
@@ -77,9 +76,9 @@ bind/11/pose = Transform3D(0.207408, -0.919521, -0.333854, 0.0313853, -0.334853,
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dswey"]
 _data = {
-"break_animation": ExtResource("4_vccol"),
-"dive_animation": ExtResource("3_eo1ta"),
-"flight_animation": ExtResource("2_0o4ql")
+"break_animation": ExtResource("6_y1fjt"),
+"dive_animation": ExtResource("7_ykolj"),
+"flight_animation": ExtResource("8_8eefh")
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ggdxq"]
@@ -133,25 +132,33 @@ states/flight_animation/position = Vector2(474, 100)
 transitions = ["Start", "flight_animation", SubResource("AnimationNodeStateMachineTransition_oa17q"), "flight_animation", "dive_animation", SubResource("AnimationNodeStateMachineTransition_xqu5a"), "dive_animation", "flight_animation", SubResource("AnimationNodeStateMachineTransition_7e4ba"), "dive_animation", "break_animation", SubResource("AnimationNodeStateMachineTransition_gmwas"), "break_animation", "dive_animation", SubResource("AnimationNodeStateMachineTransition_wotjm"), "flight_animation", "break_animation", SubResource("AnimationNodeStateMachineTransition_4jpvw"), "break_animation", "flight_animation", SubResource("AnimationNodeStateMachineTransition_1sl3b")]
 graph_offset = Vector2(90, -100)
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Glider" type="CharacterBody3D"]
 collision_mask = 2
 axis_lock_angular_z = true
-script = ExtResource("1_rjnmt")
-YawAnglePerSecond = 15.0
 
-[node name="MovementStateMachine" type="Node" parent="." node_paths=PackedStringArray("Body")]
-script = ExtResource("6_gtna8")
+[node name="MovementStateMachine" type="Node" parent="." node_paths=PackedStringArray("Body", "Target")]
+script = ExtResource("2_85jub")
 InitialState = NodePath("GlideState")
 Body = NodePath("..")
+Target = NodePath("../GlideTarget")
 
 [node name="GlideState" type="Node" parent="MovementStateMachine"]
-script = ExtResource("7_7dmn0")
+script = ExtResource("3_u2e6e")
 
 [node name="DiveState" type="Node" parent="MovementStateMachine"]
-script = ExtResource("8_ajn4a")
+script = ExtResource("4_ouuxt")
 
 [node name="BreakState" type="Node" parent="MovementStateMachine"]
-script = ExtResource("9_tyls8")
+script = ExtResource("5_1regb")
+
+[node name="GlideTarget" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
+
+[node name="GlideCamera" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="GlideCamera"]
+transform = Transform3D(1, 0, 0, 0, 0.927465, 0.373911, 0, -0.373911, 0.927465, 0, 2.64765, 4.10991)
+current = true
 
 [node name="Armature" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
@@ -169,14 +176,14 @@ bones/1/parent = 0
 bones/1/rest = Transform3D(0.999992, -0.00374005, 0.00108164, 0.00388695, 0.94318, -0.332259, 0.000222486, 0.33226, 0.943188, -1.03569e-10, 0.570843, -1.49012e-08)
 bones/1/enabled = true
 bones/1/position = Vector3(-1.03569e-10, 0.570843, -1.49012e-08)
-bones/1/rotation = Quaternion(0.147471, 0.00017658, 0.00193864, 0.989065)
+bones/1/rotation = Quaternion(0.148347, 0.000178297, 0.00193848, 0.988934)
 bones/1/scale = Vector3(1, 1, 1)
 bones/2/name = "UpperArm.L"
 bones/2/parent = 0
 bones/2/rest = Transform3D(-0.89296, 0.450081, 0.0071136, -0.448792, -0.888958, -0.0913235, -0.0347793, -0.0847407, 0.995796, 0.187346, 0.512789, -0.0166807)
 bones/2/enabled = true
 bones/2/position = Vector3(0.187346, 0.512789, -0.0166807)
-bones/2/rotation = Quaternion(0.293779, -0.0811973, 0.896557, -0.321382)
+bones/2/rotation = Quaternion(0.293742, -0.0821678, 0.897463, -0.31863)
 bones/2/scale = Vector3(1, 1, 1)
 bones/3/name = "ForeArm.L"
 bones/3/parent = 2
@@ -190,7 +197,7 @@ bones/4/parent = 0
 bones/4/rest = Transform3D(0.114882, 0.0975844, 0.988577, -0.0169887, -0.994825, 0.100176, 0.993258, -0.0283023, -0.112627, 0.0917284, 0.00771888, -0.0552737)
 bones/4/enabled = true
 bones/4/position = Vector3(0.0917284, 0.00771886, -0.0552736)
-bones/4/rotation = Quaternion(0.732276, 0.108738, 0.66231, -0.115296)
+bones/4/rotation = Quaternion(0.732805, 0.106271, 0.662501, -0.11312)
 bones/4/scale = Vector3(1.00002, 1, 1)
 bones/5/name = "Shin.L"
 bones/5/parent = 4
@@ -211,7 +218,7 @@ bones/7/parent = 0
 bones/7/rest = Transform3D(-0.896438, -0.443119, -0.00684682, 0.441837, -0.89243, -0.0913778, 0.0343809, -0.0849396, 0.995793, -0.186882, 0.511334, -0.0167641)
 bones/7/enabled = true
 bones/7/position = Vector3(-0.186882, 0.511334, -0.0167641)
-bones/7/rotation = Quaternion(-0.293661, -0.0824102, 0.897734, 0.317877)
+bones/7/rotation = Quaternion(-0.29362, -0.0833799, 0.898629, 0.315121)
 bones/7/scale = Vector3(1, 1, 1)
 bones/8/name = "ForeArm.R"
 bones/8/parent = 7
@@ -225,7 +232,7 @@ bones/9/parent = 0
 bones/9/rest = Transform3D(0.115189, -0.0898352, -0.989275, 0.0178832, -0.995553, 0.0924879, -0.993201, -0.0283444, -0.113069, -0.0873235, 0.00702286, -0.0553135)
 bones/9/enabled = true
 bones/9/position = Vector3(-0.0873235, 0.00702286, -0.0553135)
-bones/9/rotation = Quaternion(0.732841, -0.105866, -0.662589, -0.112745)
+bones/9/rotation = Quaternion(0.733361, -0.103397, -0.662772, -0.110567)
 bones/9/scale = Vector3(1.00002, 1, 1)
 bones/10/name = "Shin.R"
 bones/10/parent = 9
@@ -255,27 +262,6 @@ libraries = {
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0393372, 0.0834351)
 shape = SubResource("BoxShape3D_ggdxq")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.927465, 0.373911, 0, -0.373911, 0.927465, 0, 2.64765, 4.10991)
-current = true
-
-[node name="PlayerHUD" parent="." instance=ExtResource("2_fojiw")]
-visible = false
-
-[node name="Control" parent="PlayerHUD" index="0"]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -1.0
-offset_top = -20.0
-offset_right = 39.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_mxtwn")
 anim_player = NodePath("../AnimationPlayer")
@@ -283,8 +269,4 @@ parameters/conditions/break = false
 parameters/conditions/dive = false
 parameters/conditions/flight = false
 
-[connection signal="SignalPlayerDeath" from="." to="PlayerHUD/Control" method="OnSignalPlayerDeath"]
-[connection signal="SignalPlayerRespawn" from="." to="PlayerHUD/Control" method="OnSignalPlayerRespawn"]
-[connection signal="AnalogInput" from="PlayerHUD/Control" to="." method="OnMouseAnalogInput"]
-
-[editable path="PlayerHUD"]
+[node name="GlideHUD" parent="." instance=ExtResource("8_ccfmp")]

@@ -15,7 +15,7 @@ public partial class BreakState : MovementState
 
     public override void Enter()
     {
-        base.Enter();
+        //Lock pitch to 0 and remove ability to alter pitch.
     }
 
     public override void Exit()
@@ -25,17 +25,18 @@ public partial class BreakState : MovementState
 
     public override void StateReady()
     {
-
+        base.StateReady();
     }
 
     public override void StateProcess(double delta)
     {
-        base.StateReady();
+
     }
 
     public override void StatePhysicsProcess(double delta)
     {
-
+        //Lerp speed to minimum break speed.
+        base.StatePhysicsProcess(delta);
     }
 
     public override Vector3 CalculateStateMovementVelocity(Vector3 velocity, double delta)
