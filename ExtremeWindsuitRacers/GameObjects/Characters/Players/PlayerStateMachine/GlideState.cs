@@ -40,21 +40,4 @@ public partial class GlideState : MovementState
         //At pitch 0, keep speed constant but no acceleration
         base.StatePhysicsProcess(delta);
     }
-
-    public override Vector3 CalculateStateMovementVelocity(Vector3 velocity, double delta)
-    {
-        AcceleratedSpeed = CurrentSpeed + Acceleration;
-
-        if (CurrentSpeed < MaxSpeed)
-        {
-            CurrentSpeed = Mathf.Lerp(CurrentSpeed, AcceleratedSpeed, (float)delta * 5);
-        }
-        else
-        {
-            CurrentSpeed = Mathf.Lerp(CurrentSpeed, MaxSpeed, (float)delta * 5);
-        }
-        velocity = ForwardDirection * CurrentSpeed;
-
-        return velocity;
-    }
 }

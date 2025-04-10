@@ -7,8 +7,6 @@ public partial class MovementStateMachine : Node
 	[ExportSubgroup("Nodes")]
 	[Export] public NodePath InitialState;
 	[Export] public CharacterBody3D Body;
-	[Export] public Node3D Target;
-
 
 	private Dictionary<string, MovementState> States;
 	private MovementState CurrentState;
@@ -31,7 +29,9 @@ public partial class MovementStateMachine : Node
 
 		CurrentState = GetNode<MovementState>(InitialState);
 		CurrentState.Enter();
-	}
+
+        Input.MouseMode = Input.MouseModeEnum.Captured;
+    }
 
 	public override void _Process(double delta)
 	{
