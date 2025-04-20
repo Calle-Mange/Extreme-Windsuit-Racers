@@ -35,9 +35,19 @@ public partial class GlideState : MovementState
 
     public override void StatePhysicsProcess(double delta)
     {
-        //Accelerate towards target while pitch is lower than 0
-        //Deaccelerate when pitch is higher than 0. Deacceleration is based on the pitch, with max pitch (90) reflecting full deacceleration at gravity speed.
-        //At pitch 0, keep speed constant but no acceleration
         base.StatePhysicsProcess(delta);
+
+        AcceleratedSpeed = CurrentSpeed + CalculateAcceleration(Acceleration);
+
+        CurrentSpeed = Mathf.Lerp(CurrentSpeed, AcceleratedSpeed, (float)delta * 8);
+
+        if (CurrentSpeed > MaxSpeed)
+        {
+            CurrentSpeed = Mathf.Lerp(CurrentSpeed, MaxSpeed, (float)delta * 8);
+        }
+        if (CurrentSpeed < MinSpeed)
+        {
+            CurrentSpeed = Mathf.Lerp(CurrentSpeed, MinSpeed, (float)delta * 8);
+        }
     }
 }
