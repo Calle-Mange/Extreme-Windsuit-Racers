@@ -4,16 +4,17 @@ using static Godot.TextServer;
 
 public partial class MovementState : Node
 {
-	public MovementStateMachine MovementStateMachine;
+    public MovementStateMachine MovementStateMachine;
     public CharacterBody3D Body;
     public Node3D Target;
 
     [ExportSubgroup("Speed Controll")]
     [Export] protected float MaxSpeed = 200.0f;
+    [Export] protected float MinSpeed = 0f;
     [Export] protected float MinGlideSpeed = 50.0f;
     [Export] protected float MaxFallSpeed = 300.0f;
-    [Export] protected float Acceleration = 10.0f;
-    [Export] protected float FlySpeed = 50f;
+    [Export] protected float MaxAcceleration = 10.0f;
+    [Export] protected float MaxDeacceleration = -10.0f;
 
     [ExportSubgroup("Steering Controll")]
     [Export] protected float MaxPitch = 89f;
@@ -22,34 +23,54 @@ public partial class MovementState : Node
     [Export] protected float SmoothingFactor = 2f;
 
     protected Vector3 ForwardDirection;
-    protected Vector3 TargetPosition;
 
     protected float CurrentSpeed;
+    protected float Acceleration;
     protected float AcceleratedSpeed;
     protected float targetPitch = 0.0f;
     protected float targetYaw = 0.0f;
     protected float currentPitch = 0.0f;
     protected float currentYaw = 0.0f;
+    protected float gravity = 982f;
+    protected float AcceleratedGravity;
+    protected float CurrentGravitySpeed;
 
     protected Tween RotationalTween;
 
     public override void _Ready() { }
 
-	public virtual void Enter() { }
+    /// <summary>
+    /// Method called when the state is entered.
+    /// </summary>
+    public virtual void Enter() { }
 
+    /// <summary>
+    /// Method called when the state is exited. 
+    /// </summary>
     public virtual void Exit() { }
 
+    /// <summary>
+    /// Method that is called at the beginning of the runtime as the state machine is initiated.
+    /// </summary>
     public virtual void StateReady()
     {
         ForwardDirection = Body.Transform.Basis.Z * -1;
     }
 
-    public virtual void StateProcess(double delta) 
+    /// <summary>
+    /// Method for non-physics processes and caulculations for the state.
+    /// </summary>
+    /// <param name="delta"></param>
+    public virtual void StateProcess(double delta)
     {
-        TargetPosition = Target.Position;
+
     }
 
-    public virtual void StatePhysicsProcess(double delta) 
+    /// <summary>
+    /// Method for physics processes and calculations for the state.
+    /// </summary>
+    /// <param name="delta"></param>
+    public virtual void StatePhysicsProcess(double delta)
     {
         currentPitch = Mathf.Lerp(currentPitch, targetPitch, (float)delta * SmoothingFactor);
         currentYaw = Mathf.Lerp(currentYaw, targetYaw, (float)delta * SmoothingFactor);
@@ -66,14 +87,37 @@ public partial class MovementState : Node
     /// <summary>
     /// Calculate the velocity for the state and return it.
     /// </summary>
-    /// <param name="velocity">The velocity variable of the CharacterBody3D</param>
-    /// <param name="delta">Delta from the physics process</param>
-    /// <returns>Returns the velocity after calculating how the state should affect it</returns>
-    public virtual Vector3 CalculateStateMovementVelocity(Vector3 velocity, double delta) 
+    /// <param name="velocity">The velocity variable of the CharacterBody3D.</param>
+    /// <param name="delta">Delta from the physics process.</param>
+    /// <returns>Returns the velocity after calculating how the state should affect it.</returns>
+    public virtual Vector3 CalculateStateMovementVelocity(Vector3 velocity, double delta)
     {
-        //Add gravity, add acceleration, add deacceleration when pitch is above 0 etc.
-        velocity = ForwardDirection * FlySpeed;
+        velocity = ForwardDirection * CurrentSpeed;
+        velocity.Y -= gravity * (float)delta;
         return velocity;
+    }
+
+    /// <summary>
+    /// Calculate the acceleration based on the current pitch input.
+    /// </summary>
+    /// <param name="acceleration">The acceleration variable that should be calculated.</param>
+    /// <returns>Return the calculated acceleration.</returns>
+    protected virtual float CalculateAcceleration(float acceleration)
+    {
+        acceleration = (currentPitch / MaxPitch) * MaxAcceleration * -1;
+        acceleration = Mathf.Clamp(acceleration, MaxDeacceleration, MaxAcceleration);
+
+        return acceleration;
+    }
+
+    /// <summary>
+    /// Calculate the gravity acceleration.
+    /// </summary>
+    /// <param name="gravityAcceleration">The gravity acceleration variable that should be calculated.</param>
+    /// <returns>Return the calculated gravity acceleration.</returns>
+    protected virtual float CalculateGravityAcceleration(float gravityAcceleration)
+    {
+        return gravityAcceleration;
     }
 
     public override void _Process(double delta) { }

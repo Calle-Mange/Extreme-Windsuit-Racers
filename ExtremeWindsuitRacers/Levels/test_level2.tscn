@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=3 uid="uid://c4pdt7opng8pf"]
 
 [ext_resource type="Texture2D" uid="uid://57nijs435i5a" path="res://Assets/Sky/kloofendal_48d_partly_cloudy_puresky_4k.exr" id="1_23xo7"]
-[ext_resource type="PackedScene" uid="uid://hft6v7piwqrt" path="res://GameObjects/Characters/Players/player.tscn" id="1_ln5fe"]
 [ext_resource type="PackedScene" uid="uid://d3bmheq01qmbr" path="res://GameObjects/Environment/test_pillar.tscn" id="2_7tdkc"]
 [ext_resource type="PackedScene" uid="uid://cv6h20p2j4kso" path="res://Scenes/TestTerrain0.tscn" id="4_lu2h7"]
 [ext_resource type="PackedScene" uid="uid://b2q7h21khauoa" path="res://Scenes/CylinderTunnel.tscn" id="5_sfk8y"]
+[ext_resource type="PackedScene" uid="uid://b7sg2uk78j1mk" path="res://GameObjects/Characters/Players/Glider.tscn" id="5_ywedu"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ke1fc"]
 panorama = ExtResource("1_23xo7")
@@ -30,9 +30,6 @@ shadow_enabled = true
 
 [node name="TestPillar" parent="." instance=ExtResource("2_7tdkc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 197.023, 220.674)
-
-[node name="Player" parent="." instance=ExtResource("1_ln5fe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 245.716, 212.354)
 
 [node name="Node3D" parent="." instance=ExtResource("4_lu2h7")]
 transform = Transform3D(25.015, 0, 0, 0, 20.5278, 14.2954, 0, -14.2954, 20.5278, 0.364426, 69.4731, 155.814)
@@ -66,3 +63,6 @@ transform = Transform3D(25.015, 0, 0, 0, 20.5278, 14.2954, 0, -14.2954, 20.5278,
 
 [node name="Node3D11" parent="." instance=ExtResource("5_sfk8y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 551, 547, -174)
+
+[node name="Glider" parent="." instance=ExtResource("5_ywedu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 256.556, 221.887)
