@@ -30,22 +30,23 @@ public partial class MovementStateMachine : Node
 		CurrentState = GetNode<MovementState>(InitialState);
 		CurrentState.Enter();
 
-        Input.MouseMode = Input.MouseModeEnum.Captured;
-    }
-
-	public override void _Process(double delta)
-	{
-		CurrentState.StateProcess(delta);
+		Input.MouseMode = Input.MouseModeEnum.Captured;
 	}
 
-    public override void _PhysicsProcess(double delta)
-    {
-        CurrentState.StatePhysicsProcess(delta);
+    public override void _Process(double delta)
+	{
+		HandleInput();
+        CurrentState.StateProcess(delta);
+	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		CurrentState.StatePhysicsProcess(delta);
 		Body.Velocity = CurrentState.CalculateStateMovementVelocity(Body.Velocity, delta);
 		Body.MoveAndSlide();
-    }
+	}
 
-    public void TransitionTo(string state)
+	public void TransitionTo(string state)
 	{
 		if (!States.ContainsKey(state) || CurrentState == States[state])
 		{
@@ -53,7 +54,34 @@ public partial class MovementStateMachine : Node
 		}
 
 		CurrentState.Exit();
-		CurrentState = States[state];
+        CurrentState = States[state];
 		CurrentState.Enter();
-	}
+    }
+
+	protected void HandleInput()
+	{
+        if (Input.IsActionJustPressed("dive"))
+        {
+			if (CurrentState == States["DiveState"])
+			{
+				TransitionTo("GlideState");
+			}
+			else
+			{
+                TransitionTo("DiveState");
+            }
+        }
+
+        if (Input.IsActionJustPressed("break"))
+        {
+            if (CurrentState == States["BreakState"])
+            {
+                TransitionTo("GlideState");
+            }
+            else
+            {
+                TransitionTo("BreakState");
+            }
+        }
+    }
 }

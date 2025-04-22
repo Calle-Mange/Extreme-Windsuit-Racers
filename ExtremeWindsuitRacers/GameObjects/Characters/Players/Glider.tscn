@@ -147,8 +147,8 @@ MaxSpeed = 500.0
 [node name="DiveState" type="Node" parent="MovementStateMachine"]
 script = ExtResource("4_ouuxt")
 MaxSpeed = 1000.0
-MaxAcceleration = 20.0
-MaxDeacceleration = -20.0
+MaxAcceleration = 50.0
+MaxDeacceleration = 0.0
 
 [node name="BreakState" type="Node" parent="MovementStateMachine"]
 script = ExtResource("5_1regb")
