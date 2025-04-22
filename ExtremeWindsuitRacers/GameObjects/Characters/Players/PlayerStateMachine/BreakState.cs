@@ -35,12 +35,19 @@ public partial class BreakState : MovementState
 
     public override void StatePhysicsProcess(double delta)
     {
-        //Lerp speed to minimum break speed.
         base.StatePhysicsProcess(delta);
-    }
 
-    public override Vector3 CalculateStateMovementVelocity(Vector3 velocity, double delta)
-    {
-        return velocity;
+        AcceleratedSpeed = CurrentSpeed + CalculateAcceleration(Acceleration);
+
+        CurrentSpeed = Mathf.Lerp(CurrentSpeed, AcceleratedSpeed, (float)delta * 8);
+
+        if (CurrentSpeed > MaxSpeed)
+        {
+            CurrentSpeed = Mathf.Lerp(CurrentSpeed, MaxSpeed, (float)delta * 8);
+        }
+        if (CurrentSpeed < MinSpeed)
+        {
+            CurrentSpeed = Mathf.Lerp(CurrentSpeed, MinSpeed, (float)delta * 8);
+        }
     }
 }

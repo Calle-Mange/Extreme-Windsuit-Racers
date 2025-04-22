@@ -23,31 +23,40 @@ public partial class MovementState : Node
     [Export] protected float SmoothingFactor = 2f;
 
     protected Vector3 ForwardDirection;
-
-    protected float CurrentSpeed;
-    protected float Acceleration;
-    protected float AcceleratedSpeed;
-    protected float targetPitch = 0.0f;
-    protected float targetYaw = 0.0f;
-    protected float currentPitch = 0.0f;
-    protected float currentYaw = 0.0f;
     protected float gravity = 982f;
-    protected float AcceleratedGravity;
-    protected float CurrentGravitySpeed;
 
+    #region Public Variables
+    public float CurrentSpeed;
+    public float Acceleration;
+    public float AcceleratedSpeed;
+    public float currentPitch = 0.0f;
+    public float currentYaw = 0.0f;
+    public float AcceleratedGravity;
+    public float CurrentGravitySpeed;
+    public float targetPitch = 0.0f;
+    public float targetYaw = 0.0f;
+    public float lastPitch { get; protected set; }
+    public float lastYaw { get; protected set; }
     protected Tween RotationalTween;
+    #endregion
 
     public override void _Ready() { }
 
     /// <summary>
     /// Method called when the state is entered.
     /// </summary>
-    public virtual void Enter() { }
+    public virtual void Enter() 
+    {
+
+    }
 
     /// <summary>
     /// Method called when the state is exited. 
     /// </summary>
-    public virtual void Exit() { }
+    public virtual void Exit() 
+    {
+        lastPitch = currentPitch;
+    }
 
     /// <summary>
     /// Method that is called at the beginning of the runtime as the state machine is initiated.
@@ -74,6 +83,7 @@ public partial class MovementState : Node
     {
         currentPitch = Mathf.Lerp(currentPitch, targetPitch, (float)delta * SmoothingFactor);
         currentYaw = Mathf.Lerp(currentYaw, targetYaw, (float)delta * SmoothingFactor);
+        GD.Print(currentPitch);
 
         Body.Rotation = new Vector3(
             Mathf.DegToRad(currentPitch),

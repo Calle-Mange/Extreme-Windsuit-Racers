@@ -3,8 +3,8 @@ using System;
 
 public partial class DiveState : MovementState
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
 	{
 	}
 
@@ -15,7 +15,7 @@ public partial class DiveState : MovementState
 
     public override void Enter()
     {
-        //Lock pitch to -90 and remove ability to steer.
+
     }
 
     public override void Exit()
@@ -35,12 +35,19 @@ public partial class DiveState : MovementState
 
     public override void StatePhysicsProcess(double delta)
     {
-        //Lerp towards target and boost acceleration the closer to the target that you get.
         base.StatePhysicsProcess(delta);
-    }
 
-    public override Vector3 CalculateStateMovementVelocity(Vector3 velocity, double delta)
-    {
-        return velocity;
+        AcceleratedSpeed = CurrentSpeed + CalculateAcceleration(Acceleration);
+
+        CurrentSpeed = Mathf.Lerp(CurrentSpeed, AcceleratedSpeed, (float)delta * 8);
+
+        if (CurrentSpeed > MaxSpeed)
+        {
+            CurrentSpeed = Mathf.Lerp(CurrentSpeed, MaxSpeed, (float)delta * 8);
+        }
+        if (CurrentSpeed < MinSpeed)
+        {
+            CurrentSpeed = Mathf.Lerp(CurrentSpeed, MinSpeed, (float)delta * 8);
+        }
     }
 }
