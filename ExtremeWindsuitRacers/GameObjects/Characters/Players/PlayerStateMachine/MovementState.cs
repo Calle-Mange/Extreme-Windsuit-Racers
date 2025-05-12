@@ -25,21 +25,6 @@ public partial class MovementState : Node
     protected Vector3 ForwardDirection;
     protected float gravity = 982f;
 
-    #region Public Variables
-    public float CurrentSpeed;
-    public float Acceleration;
-    public float AcceleratedSpeed;
-    public float currentPitch = 0.0f;
-    public float currentYaw = 0.0f;
-    public float AcceleratedGravity;
-    public float CurrentGravitySpeed;
-    public float targetPitch = 0.0f;
-    public float targetYaw = 0.0f;
-    public float lastPitch { get; protected set; }
-    public float lastYaw { get; protected set; }
-    protected Tween RotationalTween;
-    #endregion
-
     public override void _Ready() { }
 
     /// <summary>
@@ -55,7 +40,7 @@ public partial class MovementState : Node
     /// </summary>
     public virtual void Exit() 
     {
-        lastPitch = currentPitch;
+
     }
 
     /// <summary>
@@ -81,13 +66,12 @@ public partial class MovementState : Node
     /// <param name="delta"></param>
     public virtual void StatePhysicsProcess(double delta)
     {
-        currentPitch = Mathf.Lerp(currentPitch, targetPitch, (float)delta * SmoothingFactor);
-        currentYaw = Mathf.Lerp(currentYaw, targetYaw, (float)delta * SmoothingFactor);
-        GD.Print(currentPitch);
+        MovementStateMachine.currentPitch = Mathf.Lerp(MovementStateMachine.currentPitch, MovementStateMachine.targetPitch, (float)delta * SmoothingFactor);
+        MovementStateMachine.currentYaw = Mathf.Lerp(MovementStateMachine.currentYaw, MovementStateMachine.targetYaw, (float)delta * SmoothingFactor);
 
         Body.Rotation = new Vector3(
-            Mathf.DegToRad(currentPitch),
-            Mathf.DegToRad(currentYaw),
+            Mathf.DegToRad(MovementStateMachine.currentPitch),
+            Mathf.DegToRad(MovementStateMachine.currentYaw),
             0f
         );
 
@@ -102,7 +86,7 @@ public partial class MovementState : Node
     /// <returns>Returns the velocity after calculating how the state should affect it.</returns>
     public virtual Vector3 CalculateStateMovementVelocity(Vector3 velocity, double delta)
     {
-        velocity = ForwardDirection * CurrentSpeed;
+        velocity = ForwardDirection * MovementStateMachine.CurrentSpeed;
         velocity.Y -= gravity * (float)delta;
         return velocity;
     }
@@ -114,7 +98,7 @@ public partial class MovementState : Node
     /// <returns>Return the calculated acceleration.</returns>
     protected virtual float CalculateAcceleration(float acceleration)
     {
-        acceleration = (currentPitch / MaxPitch) * MaxAcceleration * -1;
+        acceleration = (MovementStateMachine.currentPitch / MaxPitch) * MaxAcceleration * -1;
         acceleration = Mathf.Clamp(acceleration, MaxDeacceleration, MaxAcceleration);
 
         return acceleration;
@@ -136,10 +120,10 @@ public partial class MovementState : Node
     {
         if (@event is InputEventMouseMotion motion)
         {
-            targetYaw -= motion.ScreenRelative.X * MouseSensitivity;
-            targetPitch -= motion.ScreenRelative.Y * MouseSensitivity;
+            MovementStateMachine.targetYaw -= motion.ScreenRelative.X * MouseSensitivity;
+            MovementStateMachine.targetPitch -= motion.ScreenRelative.Y * MouseSensitivity;
 
-            targetPitch = Mathf.Clamp(targetPitch, MinPitch, MaxPitch);
+            MovementStateMachine.targetPitch = Mathf.Clamp(MovementStateMachine.targetPitch, MinPitch, MaxPitch);
         }
 
         if (@event is InputEventKey keyEvent && keyEvent.Pressed && keyEvent.Keycode == Key.Escape)
