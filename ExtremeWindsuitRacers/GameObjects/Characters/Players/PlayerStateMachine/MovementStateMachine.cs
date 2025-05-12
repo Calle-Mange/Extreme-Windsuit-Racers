@@ -8,10 +8,27 @@ public partial class MovementStateMachine : Node
 	[Export] public NodePath InitialState;
 	[Export] public CharacterBody3D Body;
 
-	private Dictionary<string, MovementState> States;
+    #region Private State Variables
+    private Dictionary<string, MovementState> States;
 	private MovementState CurrentState;
+    #endregion
 
-	public override void _Ready()
+    #region Public Movement Variables
+    public float CurrentSpeed;
+    public float Acceleration;
+    public float AcceleratedSpeed;
+    public float currentPitch = 0.0f;
+    public float currentYaw = 0.0f;
+    public float AcceleratedGravity;
+    public float CurrentGravitySpeed;
+    public float targetPitch = 0.0f;
+    public float targetYaw = 0.0f;
+    public float lastPitch { get; protected set; }
+    public float lastYaw { get; protected set; }
+    protected Tween RotationalTween;
+    #endregion
+
+    public override void _Ready()
 	{
 		States = new Dictionary<string, MovementState>();
 
@@ -65,10 +82,12 @@ public partial class MovementStateMachine : Node
 			if (CurrentState == States["DiveState"])
 			{
 				TransitionTo("GlideState");
-			}
+                GD.Print("Changing to glide");
+            }
 			else
 			{
                 TransitionTo("DiveState");
+                GD.Print("Changing to dive");
             }
         }
 
@@ -77,10 +96,12 @@ public partial class MovementStateMachine : Node
             if (CurrentState == States["BreakState"])
             {
                 TransitionTo("GlideState");
+				GD.Print("Changing to glide");
             }
             else
             {
                 TransitionTo("BreakState");
+                GD.Print("Changing to break");
             }
         }
     }

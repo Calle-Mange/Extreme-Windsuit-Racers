@@ -15,7 +15,8 @@ public partial class GlideState : MovementState
 
     public override void Enter()
     {
-
+        MaxPitch = 89f;
+        MinPitch = -89f;
     }
 
     public override void Exit()
@@ -37,17 +38,17 @@ public partial class GlideState : MovementState
     {
         base.StatePhysicsProcess(delta);
 
-        AcceleratedSpeed = CurrentSpeed + CalculateAcceleration(Acceleration);
+        MovementStateMachine.AcceleratedSpeed = MovementStateMachine.CurrentSpeed + CalculateAcceleration(MovementStateMachine.Acceleration);
 
-        CurrentSpeed = Mathf.Lerp(CurrentSpeed, AcceleratedSpeed, (float)delta * 8);
+        MovementStateMachine.CurrentSpeed = Mathf.Lerp(MovementStateMachine.CurrentSpeed, MovementStateMachine.AcceleratedSpeed, (float)delta * 8);
 
-        if (CurrentSpeed > MaxSpeed)
+        if (MovementStateMachine.CurrentSpeed > MaxSpeed)
         {
-            CurrentSpeed = Mathf.Lerp(CurrentSpeed, MaxSpeed, (float)delta * 8);
+            MovementStateMachine.CurrentSpeed = Mathf.Lerp(MovementStateMachine.CurrentSpeed, MaxSpeed, (float)delta * 8);
         }
-        if (CurrentSpeed < MinSpeed)
+        if (MovementStateMachine.CurrentSpeed < MinSpeed)
         {
-            CurrentSpeed = Mathf.Lerp(CurrentSpeed, MinSpeed, (float)delta * 8);
+            MovementStateMachine.CurrentSpeed = Mathf.Lerp(MovementStateMachine.CurrentSpeed, MinSpeed, (float)delta * 8);
         }
     }
 }
