@@ -23,8 +23,6 @@ public partial class MovementStateMachine : Node
     public float CurrentGravitySpeed;
     public float targetPitch = 0.0f;
     public float targetYaw = 0.0f;
-    public float lastPitch { get; protected set; }
-    public float lastYaw { get; protected set; }
     protected Tween RotationalTween;
     #endregion
 
