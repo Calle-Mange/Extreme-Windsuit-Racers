@@ -1,0 +1,84 @@
+[gd_scene load_steps=13 format=3 uid="uid://mipdbbrar4gl"]
+
+[ext_resource type="Texture2D" uid="uid://57nijs435i5a" path="res://Assets/Sky/kloofendal_48d_partly_cloudy_puresky_4k.exr" id="1_8ygk2"]
+[ext_resource type="PackedScene" uid="uid://cfgg6cbgis3js" path="res://Assets/Terrain/GeneratedTerrain/Terrain0.tscn" id="2_koe7m"]
+[ext_resource type="PackedScene" uid="uid://cym7e8ngw0ifn" path="res://Assets/Terrain/GeneratedTerrain/Terrain1.tscn" id="3_i0vkp"]
+[ext_resource type="PackedScene" uid="uid://d4mqmoj2p8l12" path="res://Assets/Terrain/GeneratedTerrain/Terrain2.tscn" id="4_3ul01"]
+[ext_resource type="PackedScene" uid="uid://bdjdwxfyulyke" path="res://Assets/Terrain/GeneratedTerrain/Terrain3.tscn" id="5_r34tl"]
+[ext_resource type="PackedScene" uid="uid://beexh2wes5wtl" path="res://Assets/Terrain/GeneratedTerrain/Terrain4.tscn" id="6_yqu51"]
+[ext_resource type="PackedScene" uid="uid://b0wvr6mefxhop" path="res://Assets/Terrain/GeneratedTerrain/Terrain5.tscn" id="7_04yxx"]
+[ext_resource type="PackedScene" uid="uid://cxh1iryjgj70f" path="res://Assets/Terrain/GeneratedTerrain/Terrain6.tscn" id="8_ujalf"]
+[ext_resource type="PackedScene" uid="uid://bf5wrqr6pst62" path="res://Assets/Terrain/GeneratedTerrain/Terrain7.tscn" id="9_bq73h"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_3rp25"]
+panorama = ExtResource("1_8ygk2")
+
+[sub_resource type="Sky" id="Sky_7u1t7"]
+sky_material = SubResource("PanoramaSkyMaterial_3rp25")
+
+[sub_resource type="Environment" id="Environment_5ts4g"]
+background_mode = 2
+sky = SubResource("Sky_7u1t7")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment"]
+environment = SubResource("Environment_5ts4g")
+
+[node name="DirectionalLight3D3" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5ts4g")
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 243.047, 238.441)
+light_color = Color(0.689931, 0.982626, 1, 1)
+shadow_enabled = true
+
+[node name="Testkurva" type="Node3D" parent="."]
+
+[node name="Node3D" parent="Testkurva" instance=ExtResource("2_koe7m")]
+transform = Transform3D(0.55329, 1.29801, 1.89903, 0, 2.05201, -1.33479, -1.65938, 0.432797, 0.633195, 5.71839, -1.61573, -4.77203)
+
+[node name="Node3D2" parent="Testkurva" instance=ExtResource("3_i0vkp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.53382, 0.0733771, -8.60774)
+
+[node name="Terrain1" parent="Testkurva/Node3D2/Terrain12" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+material_override = null
+
+[node name="CollisionShape3D" parent="Testkurva/Node3D2/Terrain12/Terrain1/Terrain1" index="0"]
+visible = true
+
+[node name="Node3D2" parent="Testkurva/Node3D2" instance=ExtResource("3_i0vkp")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.3039, 0.00693774, -0.14753)
+
+[node name="Node3D3" parent="Testkurva" instance=ExtResource("4_3ul01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00908947, 0.0109072, 4.95991)
+visible = false
+
+[node name="Node3D4" parent="Testkurva" instance=ExtResource("5_r34tl")]
+transform = Transform3D(0.902928, 0.221174, 0.368515, -0.327317, 0.909548, 0.256096, 0.278541, 0.351858, -0.89365, 5.87093, -0.299254, -7.3596)
+
+[node name="Node3D5" parent="Testkurva" instance=ExtResource("6_yqu51")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.03224, 0.110661, 0.15581)
+visible = false
+
+[node name="Node3D5" parent="Testkurva/Node3D5" instance=ExtResource("6_yqu51")]
+transform = Transform3D(-0.302873, 0, -0.332818, 0, 0.45, 0, 0.332818, 0, -0.302873, 8.77507, 0.0460871, -7.80947)
+
+[node name="Node3D6" parent="Testkurva" instance=ExtResource("7_04yxx")]
+transform = Transform3D(0.0203491, 0, 0.999793, 0, 1, 0, -0.999793, 0, 0.0203491, 3.40672, 0, -6.98959)
+
+[node name="Node3D7" parent="Testkurva" instance=ExtResource("8_ujalf")]
+transform = Transform3D(1, 0, 0, 0, 1.01967, 0.996512, 0, -0.331371, 3.0664, 3.25595, 0.473228, -5.16124)
+
+[node name="Node3D8" parent="Testkurva" instance=ExtResource("9_bq73h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.01439, -0.0140367, 2.00876)
+visible = false
+
+[node name="XRCamera3D" type="XRCamera3D" parent="."]
+transform = Transform3D(0.949261, -0.188786, 0.251522, 0, 0.799779, 0.600295, -0.31449, -0.569836, 0.759199, 6.22757, 5.41895, 3.00439)
+
+[editable path="Testkurva/Node3D"]
+[editable path="Testkurva/Node3D/Terrain0"]
+[editable path="Testkurva/Node3D2"]
+[editable path="Testkurva/Node3D2/Terrain12"]
