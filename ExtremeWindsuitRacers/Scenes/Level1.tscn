@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=3 uid="uid://cxh5obn8bse50"]
+
+[ext_resource type="Script" uid="uid://l0jg8q7tmwkc" path="res://demo/src/DemoScene.gd" id="1_ysn8j"]
+[ext_resource type="PackedScene" uid="uid://d2jihfohphuue" path="res://demo/components/UI.tscn" id="2_6ll4n"]
+[ext_resource type="PackedScene" uid="uid://bb2lp50sjndus" path="res://demo/components/Environment.tscn" id="3_kylad"]
+[ext_resource type="Terrain3DMaterial" uid="uid://m1dr4jwrq6y7" path="res://Scenes/Level1.tres" id="5_t3or0"]
+[ext_resource type="Terrain3DAssets" uid="uid://bsf1uabuiaag7" path="res://Scenes/Assets.tres" id="6_ysn8j"]
+[ext_resource type="PackedScene" uid="uid://domhm87hbhbg1" path="res://demo/components/Player.tscn" id="7_6jj8j"]
+
+[node name="Demo" type="Node"]
+script = ExtResource("1_ysn8j")
+
+[node name="UI" parent="." instance=ExtResource("2_6ll4n")]
+
+[node name="Environment" parent="." instance=ExtResource("3_kylad")]
+
+[node name="Terrain3D" type="Terrain3D" parent="."]
+data_directory = "res://Assets/Terrain/Levels/Level1/Data"
+material = ExtResource("5_t3or0")
+assets = ExtResource("6_ysn8j")
+top_level = true
+metadata/_edit_lock_ = true
+
+[node name="Player" parent="Terrain3D" instance=ExtResource("7_6jj8j")]
+transform = Transform3D(0.176947, 0, -0.98422, 0, 1, 0, 0.98422, 0, 0.176947, 118.314, 2952.43, -1790.29)
+
+[editable path="Environment"]
+[editable path="Terrain3D/Player"]

@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://dln587e3sx38"]
+
+[ext_resource type="PackedScene" uid="uid://dv4y3c2cn6yqr" path="res://Assets/Rooms/LongRoom1/longRoom.tscn" id="1_3sx4u"]
+[ext_resource type="Shader" uid="uid://c0khqoi0gp2r7" path="res://Shaders/room.tres" id="2_nv5pr"]
+[ext_resource type="PackedScene" uid="uid://b3faxr8lwa6uu" path="res://Assets/Interior/Pillar.tscn" id="3_hlra7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_orwe7"]
+render_priority = 0
+shader = ExtResource("2_nv5pr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l8ufc"]
+render_priority = 0
+shader = ExtResource("2_nv5pr")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Longroom" parent="." instance=ExtResource("1_3sx4u")]
+
+[node name="longRoom" parent="Longroom" index="0"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+
+[node name="longRoom1" parent="Longroom/longRoom" index="0"]
+material_override = SubResource("ShaderMaterial_orwe7")
+
+[node name="longRoom-outside" parent="Longroom/longRoom" index="1"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_l8ufc")
+
+[node name="Node3D" parent="." instance=ExtResource("3_hlra7")]
+transform = Transform3D(1.16, 0, 0, 0, 1.16, 0, 0, 0, 1.16, -1.36548, -5.02258, 0.196103)
+
+[node name="Node3D2" parent="." instance=ExtResource("3_hlra7")]
+transform = Transform3D(1.16, 0, 0, 0, 1.16, 0, 0, 0, 1.16, 3.23305, -5.02258, 0.196103)
+
+[node name="Node3D3" parent="." instance=ExtResource("3_hlra7")]
+transform = Transform3D(1.16, 0, 0, 0, 1.16, 0, 0, 0, 1.16, -4.24222, -5.02258, 10.6057)
+
+[editable path="Longroom"]
+[editable path="Longroom/longRoom"]

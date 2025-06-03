@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://b77qwx6jpppg7"]
+
+[ext_resource type="Shader" uid="uid://w8h23e2j1mlw" path="res://Shaders/Sun.gdshader" id="1_sc5il"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0u5ue"]
+render_priority = 0
+shader = ExtResource("1_sc5il")
+shader_parameter/scanLine_Color = Color(1, 0.456, 0.04, 0.529412)
+shader_parameter/line_Speed = 0.05
+shader_parameter/lines = 45.0
+shader_parameter/lineWidth = 0.41
+shader_parameter/fresnel_power = 100.0
+shader_parameter/fresnel_color = Color(0.778949, 0.71039, 0, 1)
+shader_parameter/extra_Lines = 0.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_sc5il"]
+
+[sub_resource type="Skin" id="Skin_5yb11"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_0u5ue")
+mesh = SubResource("SphereMesh_sc5il")
+skin = SubResource("Skin_5yb11")
