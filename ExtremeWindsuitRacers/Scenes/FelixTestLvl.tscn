@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://qws5ttxmr5bp"]
+[gd_scene load_steps=8 format=3 uid="uid://qws5ttxmr5bp"]
 
 [ext_resource type="Shader" uid="uid://dg1gsyn2wtntg" path="res://vapor_sky_shader.gdshader" id="1_4nutu"]
 [ext_resource type="PackedScene" uid="uid://d3bmheq01qmbr" path="res://GameObjects/Environment/test_pillar.tscn" id="2_s5hnq"]
 [ext_resource type="PackedScene" uid="uid://hft6v7piwqrt" path="res://GameObjects/Characters/Players/player.tscn" id="3_3xq8c"]
-[ext_resource type="Script" uid="uid://b45bf0kpmf4p5" path="res://GameObjects/Characters/Players/Movement.cs" id="4_3xq8c"]
 [ext_resource type="PackedScene" uid="uid://3ub0yre0184i" path="res://Assets/Rooms/LongRoom2/LongRoom2.tscn" id="4_s5hnq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_44g60"]
@@ -37,36 +36,10 @@ shadow_enabled = true
 [node name="TestPillar" parent="." instance=ExtResource("2_s5hnq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 197.023, 220.674)
 
-[node name="Player" parent="." instance=ExtResource("3_3xq8c")]
-transform = Transform3D(1, -0.000155353, 0.00030308, 0.000224195, 0.970169, -0.242431, -0.000256376, 0.242431, 0.970169, -0.252019, 223.487, 221.106)
-collision_mask = 1
-script = ExtResource("4_3xq8c")
-FlySpeed = 10.0
-MouseSensitivity = 0.1
-
-[node name="Skeleton3D" parent="Player/Armature" index="0"]
-bones/0/position = Vector3(-0.00221879, -0.0236375, 0.0239927)
-bones/0/rotation = Quaternion(0.679182, 0.00140168, -0.00135079, 0.733967)
-bones/1/rotation = Quaternion(0.168541, 0.000217905, 0.00193443, 0.985693)
-bones/2/rotation = Quaternion(0.291137, -0.112694, 0.92192, -0.229353)
-bones/4/position = Vector3(0.0917284, 0.00771886, -0.0552736)
-bones/4/rotation = Quaternion(0.745374, 0.0270321, 0.664703, -0.0430917)
-bones/6/rotation = Quaternion(-0.0744535, -0.041816, -0.132516, 0.987496)
-bones/7/rotation = Quaternion(-0.290902, -0.113876, 0.92274, 0.225743)
-bones/9/position = Vector3(-0.0873235, 0.00702286, -0.0553135)
-bones/9/rotation = Quaternion(0.745622, -0.024125, -0.664699, -0.0405139)
-bones/11/rotation = Quaternion(-0.0744542, 0.0418152, 0.132518, 0.987495)
-
-[node name="Camera3D" parent="Player" index="3"]
-CollisionYOffset = 2.0
-
-[node name="camcolider" parent="Player/Camera3D" index="0"]
-transform = Transform3D(1, -0.000390333, -3.64981e-05, -0.000380461, -0.988715, 0.149812, -9.45627e-05, -0.149812, -0.988715, -0.00430375, -0.0522308, -4.78584)
-target_position = Vector3(0, -6.765, 0)
-hit_from_inside = true
-
 [node name="LongRoom2" parent="." instance=ExtResource("4_s5hnq")]
 transform = Transform3D(6.535, 0, 0, 0, 6.535, 0, 0, 0, 6.535, -0.270194, 225.804, 168.438)
 
-[editable path="Player"]
-[editable path="Player/PlayerHUD"]
+[node name="Player" parent="." instance=ExtResource("3_3xq8c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.23453, 240.573, 247.896)
+GravityCustom = 200.0
+MinGlideSpeed = 20.0
