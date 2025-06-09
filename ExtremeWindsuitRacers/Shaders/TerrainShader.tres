@@ -1,8 +1,8 @@
 [gd_resource type="VisualShader" load_steps=48 format=3 uid="uid://sifw645qw6l7"]
 
-[ext_resource type="Texture2D" uid="uid://dr7thjfkwhuxx" path="res://Assets/Textures/rocky_terrain_02_2k/textures/rocky_terrain_02_diff_2k.png" id="1_bjni4"]
-[ext_resource type="Texture2D" uid="uid://ck8m5d5y8vjc3" path="res://Assets/Textures/rocky_terrain_02_2k/textures/rocky_terrain_02_arm_2k.png" id="2_8oyy3"]
-[ext_resource type="Texture2D" uid="uid://bcxpdru0mm742" path="res://Assets/Textures/rocky_terrain_02_2k/textures/rocky_terrain_02_nor_gl_2k.png" id="3_0y5e7"]
+[ext_resource type="Texture2D" uid="uid://dr7thjfkwhuxx" path="res://Assets/Terrain/Levels/Level1/Textures/rocky_terrain_02_2k/textures/rocky_terrain_02_diff_2k.png" id="1_bjni4"]
+[ext_resource type="Texture2D" uid="uid://ck8m5d5y8vjc3" path="res://Assets/Terrain/Levels/Level1/Textures/rocky_terrain_02_2k/textures/rocky_terrain_02_arm_2k.png" id="2_8oyy3"]
+[ext_resource type="Texture2D" uid="uid://bcxpdru0mm742" path="res://Assets/Terrain/Levels/Level1/Textures/rocky_terrain_02_2k/textures/rocky_terrain_02_nor_gl_2k.png" id="3_0y5e7"]
 [ext_resource type="Texture2D" uid="uid://4hxf3leo828u" path="res://Assets/Textures/rock_wall_02_2k/textures/rock_wall_02_arm_2k.png" id="4_rve7g"]
 [ext_resource type="Texture2D" uid="uid://bmx6l5h56hfkq" path="res://Assets/Textures/rock_wall_02_2k/textures/rock_wall_02_nor_gl_2k.png" id="5_8pm1o"]
 [ext_resource type="Texture2D" uid="uid://bskvmgo4kv7kd" path="res://Assets/Textures/rock_wall_02_2k/textures/rock_wall_02_diff_2k.png" id="6_ubjq0"]

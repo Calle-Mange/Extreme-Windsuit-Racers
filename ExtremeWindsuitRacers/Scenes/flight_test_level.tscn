@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://c1l2kwxwr8lqh"]
+
+[ext_resource type="PackedScene" uid="uid://cgsqnmu8jsdeo" path="res://Scenes/room4.tscn" id="1_0gksn"]
+[ext_resource type="PackedScene" uid="uid://dln587e3sx38" path="res://Assets/Rooms/LongRoom1/longRoomCylinders.tscn" id="2_opxlh"]
+[ext_resource type="PackedScene" uid="uid://b7sg2uk78j1mk" path="res://GameObjects/Characters/Players/Glider.tscn" id="3_deyb4"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_wc30h"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_opxlh"]
+sky_material = SubResource("ProceduralSkyMaterial_wc30h")
+
+[sub_resource type="Environment" id="Environment_deyb4"]
+background_mode = 2
+sky = SubResource("Sky_opxlh")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="flight-test-level" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_deyb4")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Room4" parent="." instance=ExtResource("1_0gksn")]
+
+[node name="Node3D" parent="." instance=ExtResource("2_opxlh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 33, 144)
+
+[node name="Node3D4" parent="Node3D" instance=ExtResource("2_opxlh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.20186, -0.706688, -29.9108)
+
+[node name="Glider" parent="." instance=ExtResource("3_deyb4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 75.3787, 260.549)

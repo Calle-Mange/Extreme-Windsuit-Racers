@@ -1,9 +1,9 @@
 [gd_scene load_steps=24 format=4 uid="uid://b7sg2uk78j1mk"]
 
-[ext_resource type="Script" path="res://GameObjects/Characters/Players/PlayerStateMachine/MovementStateMachine.cs" id="2_85jub"]
-[ext_resource type="Script" path="res://GameObjects/Characters/Players/PlayerStateMachine/GlideState.cs" id="3_u2e6e"]
-[ext_resource type="Script" path="res://GameObjects/Characters/Players/PlayerStateMachine/DiveState.cs" id="4_ouuxt"]
-[ext_resource type="Script" path="res://GameObjects/Characters/Players/PlayerStateMachine/BreakState.cs" id="5_1regb"]
+[ext_resource type="Script" uid="uid://bgbapyym75t1o" path="res://GameObjects/Characters/Players/PlayerStateMachine/MovementStateMachine.cs" id="2_85jub"]
+[ext_resource type="Script" uid="uid://bxhgdnhv2gwse" path="res://GameObjects/Characters/Players/PlayerStateMachine/GlideState.cs" id="3_u2e6e"]
+[ext_resource type="Script" uid="uid://bfx7xy0ygxmm" path="res://GameObjects/Characters/Players/PlayerStateMachine/DiveState.cs" id="4_ouuxt"]
+[ext_resource type="Script" uid="uid://bnv0ncdcu5sca" path="res://GameObjects/Characters/Players/PlayerStateMachine/BreakState.cs" id="5_1regb"]
 [ext_resource type="Animation" uid="uid://dnxaavx7y4120" path="res://Assets/Character/Animation/break_animation.res" id="6_y1fjt"]
 [ext_resource type="Animation" uid="uid://bd0xx07wl72eq" path="res://Assets/Character/Animation/dive_animation.res" id="7_ykolj"]
 [ext_resource type="Animation" uid="uid://btax4v1iyfdjr" path="res://Assets/Character/Animation/flight_animation.res" id="8_8eefh"]
@@ -75,9 +75,9 @@ bind/11/pose = Transform3D(0.207408, -0.919521, -0.333854, 0.0313853, -0.334853,
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dswey"]
 _data = {
-"break_animation": ExtResource("6_y1fjt"),
-"dive_animation": ExtResource("7_ykolj"),
-"flight_animation": ExtResource("8_8eefh")
+&"break_animation": ExtResource("6_y1fjt"),
+&"dive_animation": ExtResource("7_ykolj"),
+&"flight_animation": ExtResource("8_8eefh")
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ggdxq"]
@@ -142,11 +142,10 @@ Body = NodePath("..")
 
 [node name="GlideState" type="Node" parent="MovementStateMachine"]
 script = ExtResource("3_u2e6e")
-MaxSpeed = 500.0
 
 [node name="DiveState" type="Node" parent="MovementStateMachine"]
 script = ExtResource("4_ouuxt")
-MaxSpeed = 1000.0
+MaxSpeed = 500.0
 MaxAcceleration = 50.0
 MaxDeacceleration = 0.0
 
@@ -248,7 +247,7 @@ skin = SubResource("Skin_t34m8")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_dswey")
+&"": SubResource("AnimationLibrary_dswey")
 }
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
