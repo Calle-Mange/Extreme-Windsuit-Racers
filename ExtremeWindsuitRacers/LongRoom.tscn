@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://db15cec2xb358"]
+
+[ext_resource type="PackedScene" uid="uid://fv3qpnf6d3m5" path="res://Assets/Rooms/LongRoom1/longRoom.glb" id="1_rm0ug"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="longRoom" parent="." instance=ExtResource("1_rm0ug")]
+
+[editable path="longRoom"]

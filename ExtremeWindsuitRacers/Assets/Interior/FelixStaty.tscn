@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://c4avgusp1jvfx"]
+
+[ext_resource type="PackedScene" uid="uid://bh7dnjthidpj1" path="res://Assets/Interior/FelixTheGreek3LowPolly.glb" id="1_m8fwb"]
+[ext_resource type="Shader" uid="uid://cwso3bvoyqyp" path="res://Assets/Interior/pillar.tres" id="2_bulx8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r3fl7"]
+render_priority = 0
+shader = ExtResource("2_bulx8")
+shader_parameter/bg_uv_scale = Vector3(1.755, 1.755, 1)
+shader_parameter/Offset = 0.212
+shader_parameter/Fade = 0.638
+
+[node name="Node3D" type="Node3D"]
+
+[node name="FelixTheGreek3LowPolly" parent="." instance=ExtResource("1_m8fwb")]
+
+[node name="face" parent="FelixTheGreek3LowPolly" index="0"]
+material_override = SubResource("ShaderMaterial_r3fl7")
+
+[node name="CollisionShape3D" parent="FelixTheGreek3LowPolly/face/face" index="0"]
+visible = false
+
+[editable path="FelixTheGreek3LowPolly"]

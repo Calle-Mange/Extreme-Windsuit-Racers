@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://qws5ttxmr5bp"]
+
+[ext_resource type="Shader" uid="uid://dg1gsyn2wtntg" path="res://vapor_sky_shader.gdshader" id="1_4nutu"]
+[ext_resource type="PackedScene" uid="uid://d3bmheq01qmbr" path="res://GameObjects/Environment/test_pillar.tscn" id="2_s5hnq"]
+[ext_resource type="PackedScene" uid="uid://hft6v7piwqrt" path="res://GameObjects/Characters/Players/player.tscn" id="3_3xq8c"]
+[ext_resource type="PackedScene" uid="uid://3ub0yre0184i" path="res://Assets/Rooms/LongRoom2/LongRoom2.tscn" id="4_s5hnq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_44g60"]
+shader = ExtResource("1_4nutu")
+shader_parameter/skyColor = Color(7.94157e-07, 0, 0.413349, 1)
+shader_parameter/horizonColor = Color(0.490375, 1.12385e-05, 0.354785, 1)
+
+[sub_resource type="Sky" id="Sky_7u1t7"]
+sky_material = SubResource("ShaderMaterial_44g60")
+
+[sub_resource type="Environment" id="Environment_ffl4c"]
+background_mode = 2
+sky = SubResource("Sky_7u1t7")
+ambient_light_source = 2
+ambient_light_color = Color(1, 0.380392, 0.776471, 1)
+ambient_light_energy = 0.46
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="FelixTestLvl" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ffl4c")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.573233, -0.504039, -0.646025, 0.703248, -0.102, 0.70359, -0.420531, -0.857636, 0.295995, -3080.56, 3447.9, -672.187)
+light_color = Color(1, 0.380392, 0.776471, 1)
+light_energy = 6.73
+shadow_enabled = true
+
+[node name="TestPillar" parent="." instance=ExtResource("2_s5hnq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 197.023, 220.674)
+
+[node name="LongRoom2" parent="." instance=ExtResource("4_s5hnq")]
+transform = Transform3D(6.535, 0, 0, 0, 6.535, 0, 0, 0, 6.535, -0.270194, 225.804, 168.438)
+
+[node name="Player" parent="." instance=ExtResource("3_3xq8c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.23453, 240.573, 247.896)
+GravityCustom = 200.0
+MinGlideSpeed = 20.0
