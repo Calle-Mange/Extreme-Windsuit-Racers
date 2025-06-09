@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dy7rvwew3yddu"]
 
-[ext_resource type="PackedScene" uid="uid://hft6v7piwqrt" path="res://GameObjects/Characters/Players/player.tscn" id="1_x55wf"]
 [ext_resource type="PackedScene" uid="uid://d3bmheq01qmbr" path="res://GameObjects/Environment/test_pillar.tscn" id="2_bqsyd"]
+[ext_resource type="PackedScene" uid="uid://b7sg2uk78j1mk" path="res://GameObjects/Characters/Players/Glider.tscn" id="3_puagj"]
 [ext_resource type="PackedScene" uid="uid://d1bfsmt4lhx3s" path="res://GameObjects/Environment/test_plane.tscn" id="3_qkx7j"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_x22nw"]
@@ -27,10 +27,10 @@ transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75
 light_color = Color(0.689931, 0.982626, 1, 1)
 shadow_enabled = true
 
-[node name="Player" parent="." instance=ExtResource("1_x55wf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 46.9953, 0)
-
 [node name="TestPillar" parent="." instance=ExtResource("2_bqsyd")]
 
 [node name="TestPlane" parent="." instance=ExtResource("3_qkx7j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25.244, -232.644)
+
+[node name="Player" parent="." instance=ExtResource("3_puagj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 33.5569, 0)
