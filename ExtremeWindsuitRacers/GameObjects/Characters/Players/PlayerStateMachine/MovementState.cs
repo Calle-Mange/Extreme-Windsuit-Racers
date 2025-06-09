@@ -9,21 +9,21 @@ public partial class MovementState : Node
     public Node3D Target;
 
     [ExportSubgroup("Speed Controll")]
-    [Export] protected float MaxSpeed = 200.0f;
+    [Export] protected float MaxSpeed = 25.0f;
     [Export] protected float MinSpeed = 0f;
-    [Export] protected float MinGlideSpeed = 50.0f;
-    [Export] protected float MaxFallSpeed = 300.0f;
-    [Export] protected float MaxAcceleration = 10.0f;
-    [Export] protected float MaxDeacceleration = -10.0f;
+    [Export] protected float MinGlideSpeed = 5.0f;
+    [Export] protected float MaxFallSpeed = 25.0f;
+    [Export] protected float MaxAcceleration = 2.0f;
+    [Export] protected float MaxDeacceleration = -2.0f;
 
     [ExportSubgroup("Steering Controll")]
     [Export] protected float MaxPitch = 89f;
     [Export] protected float MinPitch = -89f;
     [Export] protected float MouseSensitivity = 0.1f;
-    [Export] protected float SmoothingFactor = 2f;
+    [Export] protected float SmoothingFactor = 1.8f;
 
     protected Vector3 ForwardDirection;
-    protected float gravity = 982f;
+    protected float gravity = 9.82f;
 
     public override void _Ready() { }
 

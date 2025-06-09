@@ -51,6 +51,7 @@ public partial class MovementStateMachine : Node
     public override void _Process(double delta)
 	{
 		HandleInput();
+		GD.Print(CurrentSpeed);
         CurrentState.StateProcess(delta);
 	}
 

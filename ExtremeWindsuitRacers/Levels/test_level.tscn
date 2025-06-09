@@ -32,5 +32,5 @@ shadow_enabled = true
 [node name="TestPlane" parent="." instance=ExtResource("3_qkx7j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25.244, -232.644)
 
-[node name="Player" parent="." instance=ExtResource("3_puagj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 33.5569, 0)
+[node name="Glider" parent="." instance=ExtResource("3_puagj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 27.6986, 0)
