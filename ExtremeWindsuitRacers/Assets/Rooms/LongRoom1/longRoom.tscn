@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dv4y3c2cn6yqr"]
+
+[ext_resource type="PackedScene" uid="uid://dvacobwx1fdm8" path="res://Assets/Rooms/LongRoom1/longRoom.glb" id="1_qys7g"]
+[ext_resource type="Material" uid="uid://ickkffutwcvo" path="res://demo/assets/materials/M_crystal_red.tres" id="2_6j8e8"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="longRoom" parent="." instance=ExtResource("1_qys7g")]
+
+[node name="longRoom1" parent="longRoom" index="0"]
+material_override = ExtResource("2_6j8e8")
+
+[node name="longRoom-outside" parent="longRoom" index="1"]
+visible = false
+
+[editable path="longRoom"]

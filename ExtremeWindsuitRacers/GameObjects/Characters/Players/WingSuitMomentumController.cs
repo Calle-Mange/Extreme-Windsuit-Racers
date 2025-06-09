@@ -16,7 +16,7 @@ public partial class WingSuitMomentumController : CharacterBody3D
     #region Exports
     [Export] float GravityCustom = 1200f;
     [Export] float MaxSpeed = 200.0f;
-    [Export] float MinGlideSpeed = 50.0f;
+    [Export] float MinGlideSpeed = 10.0f;
     [Export] float MaxFallSpeed = -1200.0f;
     [Export] float Acceleration = 10.0f;
     [Export] float MaxPitchAngleDegrees = 80.0f;

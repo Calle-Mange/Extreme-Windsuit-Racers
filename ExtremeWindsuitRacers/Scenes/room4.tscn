@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://cgsqnmu8jsdeo"]
+
+[ext_resource type="PackedScene" uid="uid://dlngjl5bcs112" path="res://Assets/Rooms/Room4/room4.glb" id="1_xjm55"]
+[ext_resource type="Shader" uid="uid://c0khqoi0gp2r7" path="res://Shaders/room.tres" id="2_2hcyp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ue16m"]
+render_priority = 0
+shader = ExtResource("2_2hcyp")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="room4" parent="." instance=ExtResource("1_xjm55")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.823362, 0.230503, 0.578197)
+
+[node name="cube4" parent="room4" index="0"]
+material_override = SubResource("ShaderMaterial_ue16m")
+
+[node name="cube4" parent="room4/cube4" index="0"]
+collision_layer = 15
+collision_mask = 0
+
+[node name="CollisionShape3D" parent="room4/cube4/cube4" index="0"]
+visible = false
+
+[editable path="room4"]

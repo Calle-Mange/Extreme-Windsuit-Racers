@@ -11,13 +11,21 @@ config_version=5
 [application]
 
 config/name="ExtremeWindsuitRacers"
-run/main_scene="res://Levels/test_level2.tscn"
-config/features=PackedStringArray("4.3", "C#", "Forward Plus")
+run/main_scene="uid://qws5ttxmr5bp"
+config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [dotnet]
 
 project/assembly_name="New Game Project"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/ColorPreview/plugin.cfg", "res://addons/terrain_3d/plugin.cfg")
+
+[filesystem]
+
+import/blender/enabled=false
 
 [input]
 

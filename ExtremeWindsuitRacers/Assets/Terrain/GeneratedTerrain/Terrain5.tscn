@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0wvr6mefxhop"]
+
+[ext_resource type="PackedScene" uid="uid://dy4cngi641qjm" path="res://Assets/Terrain/GeneratedTerrain/Terrain5.glb" id="1_4if72"]
+[ext_resource type="Shader" uid="uid://sifw645qw6l7" path="res://Shaders/TerrainShader.tres" id="2_fmnft"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xe4ax"]
+render_priority = 0
+shader = ExtResource("2_fmnft")
+shader_parameter/bg_uv_scale = Vector3(1, 1, 1)
+shader_parameter/fg_uv_scale = Vector3(1, 1, 1)
+shader_parameter/Offset = 0.0
+shader_parameter/Fade = 0.0
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Terrain5" parent="." instance=ExtResource("1_4if72")]
+
+[node name="Terrain5" parent="Terrain5" index="0"]
+material_override = SubResource("ShaderMaterial_xe4ax")
+
+[node name="CollisionShape3D" parent="Terrain5/Terrain5/Terrain5" index="0"]
+visible = false
+
+[editable path="Terrain5"]

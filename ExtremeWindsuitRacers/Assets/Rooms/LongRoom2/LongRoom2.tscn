@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://3ub0yre0184i"]
+
+[ext_resource type="PackedScene" uid="uid://ckxt0eajn5r08" path="res://Assets/Rooms/LongRoom2/LongRoom2.glb" id="1_dsoxx"]
+[ext_resource type="Shader" uid="uid://cbq3j7lbxtsmi" path="res://Assets/Rooms/LongRoom2/chessPatter2.gdshader" id="2_rxjnk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dsoxx"]
+render_priority = 0
+shader = ExtResource("2_rxjnk")
+shader_parameter/square_amount = 1.0
+shader_parameter/frequency = 10.0
+shader_parameter/amplitude = 0.5
+shader_parameter/speed = 1.04
+shader_parameter/room_time_scale = 1.0
+shader_parameter/floor_time_scale = 1.0
+shader_parameter/scroll_speed = 1.0
+shader_parameter/noise_density = 50.0
+shader_parameter/jitter_amount = 0.05
+shader_parameter/min_jitter_amplitude = 0.0
+shader_parameter/max_jitter_amplitude = 0.0
+shader_parameter/jitter_hz = 0.0
+shader_parameter/jitter_rotation_hz = 0.0
+
+[node name="Node3D" type="Node3D"]
+
+[node name="LongRoom2" parent="." instance=ExtResource("1_dsoxx")]
+
+[node name="LongRoomChessFloor" parent="LongRoom2" index="0"]
+material_override = SubResource("ShaderMaterial_dsoxx")
+
+[node name="CollisionShape3D" parent="LongRoom2/LongRoomChessFloor/LongRoomChessFloor" index="0"]
+visible = false
+
+[editable path="LongRoom2"]

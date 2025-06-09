@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://r47xj0rh3qwk"]
+
+[ext_resource type="Texture2D" uid="uid://57nijs435i5a" path="res://Assets/Sky/kloofendal_48d_partly_cloudy_puresky_4k.exr" id="1_1xvrm"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_3rp25"]
+panorama = ExtResource("1_1xvrm")
+
+[sub_resource type="Sky" id="Sky_7u1t7"]
+sky_material = SubResource("PanoramaSkyMaterial_3rp25")
+
+[sub_resource type="Environment" id="Environment_5ts4g"]
+background_mode = 2
+sky = SubResource("Sky_7u1t7")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment"]
+environment = SubResource("Environment_5ts4g")
+
+[node name="DirectionalLight3D3" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5ts4g")
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 243.047, 238.441)
+light_color = Color(0.689931, 0.982626, 1, 1)
+shadow_enabled = true

@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8pq7tmbu64ag"]
+
+[ext_resource type="PackedScene" uid="uid://bna1geg0qpvv0" path="res://Assets/Terrain/Mountain/MountainSide2.glb" id="1_u8oqa"]
+[ext_resource type="Shader" uid="uid://dsc5sqdl4hksq" path="res://Shaders/MountainShader.tres" id="2_h2b3u"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_civjv"]
+render_priority = 0
+shader = ExtResource("2_h2b3u")
+shader_parameter/bg_uv_scale = Vector3(1, 1, 1)
+shader_parameter/fg_uv_scale = Vector3(1, 1, 1)
+shader_parameter/Offset = 0.135
+shader_parameter/Fade = 0.421
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MountainSide22" parent="." instance=ExtResource("1_u8oqa")]
+
+[node name="MountainSide2" parent="MountainSide22" index="0"]
+material_override = SubResource("ShaderMaterial_civjv")
+
+[node name="CollisionShape3D" parent="MountainSide22/MountainSide2/MountainSide2" index="0"]
+visible = false
+
+[editable path="MountainSide22"]
