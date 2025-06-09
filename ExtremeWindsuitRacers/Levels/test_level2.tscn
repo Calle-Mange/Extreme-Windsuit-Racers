@@ -1,21 +1,13 @@
 [gd_scene load_steps=22 format=4 uid="uid://c4pdt7opng8pf"]
 
-[ext_resource type="PackedScene" uid="uid://hft6v7piwqrt" path="res://GameObjects/Characters/Players/player.tscn" id="1_ln5fe"]
-[ext_resource type="Shader" uid="uid://dg1gsyn2wtntg" path="res://vapor_sky_shader.gdshader" id="1_nm7wg"]
+[ext_resource type="Texture2D" uid="uid://57nijs435i5a" path="res://Assets/Sky/kloofendal_48d_partly_cloudy_puresky_4k.exr" id="1_23xo7"]
 [ext_resource type="PackedScene" uid="uid://d3bmheq01qmbr" path="res://GameObjects/Environment/test_pillar.tscn" id="2_7tdkc"]
 [ext_resource type="PackedScene" uid="uid://cv6h20p2j4kso" path="res://Scenes/TestTerrain0.tscn" id="4_lu2h7"]
 [ext_resource type="PackedScene" uid="uid://b2q7h21khauoa" path="res://Scenes/CylinderTunnel.tscn" id="5_sfk8y"]
-[ext_resource type="PackedScene" uid="uid://cgsqnmu8jsdeo" path="res://Scenes/room4.tscn" id="7_ixwdb"]
-[ext_resource type="PackedScene" uid="uid://bqwcppkmxcvxr" path="res://Assets/Terrain/GeneratedTerrain/TestKurva.tscn" id="7_ts07w"]
-[ext_resource type="Script" uid="uid://df3d1bekqqa5n" path="res://Scenes/room_4Test.gd" id="8_1lxn2"]
-[ext_resource type="Shader" uid="uid://c0khqoi0gp2r7" path="res://Shaders/room.tres" id="9_46a0x"]
-[ext_resource type="Shader" uid="uid://cnkrmcl47xuo6" path="res://Shaders/edge.gdshader" id="10_nm7wg"]
-[ext_resource type="PackedScene" uid="uid://b77qwx6jpppg7" path="res://Scenes/TestSphere.tscn" id="10_x2hcx"]
+[ext_resource type="PackedScene" uid="uid://b7sg2uk78j1mk" path="res://GameObjects/Characters/Players/Glider.tscn" id="5_ywedu"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_l058c"]
-shader = ExtResource("1_nm7wg")
-shader_parameter/skyColor = Color(7.94157e-07, 0, 0.413349, 1)
-shader_parameter/horizonColor = Color(0.490375, 1.12385e-05, 0.354785, 1)
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ke1fc"]
+panorama = ExtResource("1_23xo7")
 
 [sub_resource type="Sky" id="Sky_x2hcx"]
 sky_material = SubResource("ShaderMaterial_l058c")
@@ -93,9 +85,6 @@ shadow_enabled = true
 [node name="TestPillar" parent="." instance=ExtResource("2_7tdkc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 197.023, 220.674)
 
-[node name="Player" parent="." instance=ExtResource("1_ln5fe")]
-transform = Transform3D(1, 0, 0, 0, -0.0266829, 0.999644, 0, -0.999644, -0.0266829, 1445.59, 1489.58, -826.555)
-
 [node name="Node3D" parent="." instance=ExtResource("4_lu2h7")]
 transform = Transform3D(25.015, 0, 0, 0, 20.5278, 14.2954, 0, -14.2954, 20.5278, 0.364426, 69.4731, 155.814)
 
@@ -130,75 +119,7 @@ transform = Transform3D(24.6819, 0, 0, 0, 36.5725, 22.0186, 0, -25.4688, 31.6182
 transform = Transform3D(25.015, 0, 0, 0, 20.5278, 14.2954, 0, -14.2954, 20.5278, -26.5864, -408.736, -529.705)
 
 [node name="Node3D11" parent="." instance=ExtResource("5_sfk8y")]
-transform = Transform3D(9.66945, 0, 0, 0, 7.79514, 0, 0, 0, 3.64057, 1.84521, -196.387, -630.664)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 551, 547, -174)
 
-[node name="Node3D12" parent="." instance=ExtResource("7_ts07w")]
-transform = Transform3D(400, 0, 0, 0, 400, 0, 0, 0, 400, -1506.23, -1646.74, -217.568)
-
-[node name="Node3D7" parent="Node3D12" instance=ExtResource("7_ixwdb")]
-transform = Transform3D(0.09, 0, 0, 0, 0.09, 0, 0, 0, 0.09, 4.96604, 2.733, -8.14608)
-
-[node name="cube4" parent="Node3D12/Node3D7/room4" index="0"]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -12.6265, 11.1079, 38.9615)
-script = ExtResource("8_1lxn2")
-speed = Vector3(0, 0, 0)
-
-[node name="cube4" parent="Node3D12/Node3D7/room4/cube4" index="0"]
-collision_layer = 7
-
-[node name="cube5" type="MeshInstance3D" parent="Node3D12/Node3D7/room4" index="1"]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -12.6265, 11.1079, -18.4155)
-material_override = SubResource("ShaderMaterial_ue16m")
-mesh = SubResource("ArrayMesh_ixeby")
-skeleton = NodePath("")
-script = ExtResource("8_1lxn2")
-
-[node name="cube4" type="StaticBody3D" parent="Node3D12/Node3D7/room4/cube5"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D12/Node3D7/room4/cube5/cube4"]
-visible = false
-shape = SubResource("ConcavePolygonShape3D_hxmf1")
-
-[node name="Node3D9" parent="Node3D12" instance=ExtResource("7_ixwdb")]
-transform = Transform3D(0.09, 0, 0, 0, 0.09, 0, 0, 0, 0.09, 4.96604, 4.95949, -8.14608)
-
-[node name="cube4" parent="Node3D12/Node3D9/room4" index="0"]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -12.6265, 27.715, 38.9615)
-script = ExtResource("8_1lxn2")
-speed = Vector3(0, 0, 0)
-
-[node name="cube4" parent="Node3D12/Node3D9/room4/cube4" index="0"]
-collision_layer = 7
-
-[node name="Node3D8" parent="Node3D12" instance=ExtResource("7_ixwdb")]
-transform = Transform3D(0.09, 0, 0, 0, 0.09, 0, 0, 0, 0.09, 4.96604, 2.733, -10.9645)
-
-[node name="cube4" parent="Node3D12/Node3D8/room4" index="0"]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -12.6265, 11.1079, 50.1905)
-script = ExtResource("8_1lxn2")
-speed = Vector3(0, 0, 50)
-
-[node name="Sun" parent="." instance=ExtResource("10_x2hcx")]
-transform = Transform3D(6000, 0, 0, 0, 6000, 0, 0, 0, 6000, -6062.97, 4892.35, -4520.21)
-
-[node name="OverLay" type="MeshInstance3D" parent="."]
-material_override = SubResource("ShaderMaterial_x2hcx")
-transparency = 0.39
-extra_cull_margin = 16384.0
-mesh = SubResource("QuadMesh_l058c")
-
-[editable path="Node3D5"]
-[editable path="Node3D5/terrain_test"]
-[editable path="Node3D12"]
-[editable path="Node3D12/Testkurva/Node3D"]
-[editable path="Node3D12/Testkurva/Node3D/Terrain0"]
-[editable path="Node3D12/Testkurva/Node3D2"]
-[editable path="Node3D12/Testkurva/Node3D2/Terrain12"]
-[editable path="Node3D12/Testkurva/Node3D7"]
-[editable path="Node3D12/Testkurva/Node3D7/Terrain6"]
-[editable path="Node3D12/Node3D7"]
-[editable path="Node3D12/Node3D7/room4"]
-[editable path="Node3D12/Node3D9"]
-[editable path="Node3D12/Node3D9/room4"]
-[editable path="Node3D12/Node3D8"]
-[editable path="Node3D12/Node3D8/room4"]
+[node name="Glider" parent="." instance=ExtResource("5_ywedu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 256.556, 221.887)
