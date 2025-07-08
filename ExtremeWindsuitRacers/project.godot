@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="ExtremeWindsuitRacers"
-run/main_scene="uid://qws5ttxmr5bp"
+run/main_scene="uid://d2d3xoxpf33r5"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -84,3 +84,4 @@ break={
 3d_physics/layer_1="Player"
 3d_physics/layer_2="Terrain"
 3d_physics/layer_3="BodyParts"
+3d_physics/layer_4="Rooms"

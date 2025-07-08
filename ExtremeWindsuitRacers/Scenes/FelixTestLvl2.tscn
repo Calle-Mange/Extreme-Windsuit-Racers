@@ -45,7 +45,7 @@ FlySpeed = 10.0
 MouseSensitivity = 0.1
 
 [node name="Camera3D" parent="Player" index="3"]
-CollisionYOffset = 2.0
+script = null
 
 [node name="camcolider" parent="Player/Camera3D" index="0"]
 transform = Transform3D(1, -0.000390333, -3.64981e-05, -0.000380461, -0.988715, 0.149812, -9.45627e-05, -0.149812, -0.988715, -0.00430375, -0.0522308, -4.78584)
