@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using System;
 using System.Collections.Generic;
 
@@ -51,7 +51,7 @@ public partial class MovementStateMachine : Node
     public override void _Process(double delta)
 	{
 		HandleInput();
-		GD.Print(CurrentSpeed);
+		//GD.Print(CurrentSpeed);
         CurrentState.StateProcess(delta);
 	}
 
