@@ -1,8 +1,9 @@
-using Godot;
+﻿using Godot;
 using System;
 
 public partial class GlideState : MovementState
 {
+	private AnimationTree _animationTree;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -27,12 +28,20 @@ public partial class GlideState : MovementState
     public override void StateReady()
     {
         base.StateReady();
-    }
+		// Get the AnimationTree node from the Glider (Body)
+		_animationTree = Body.GetNode<AnimationTree>("AnimationTree");
+	}
 
     public override void StateProcess(double delta)
     {
-
-    }
+		// Play the "flight_animation" state in the AnimationTree
+		if (_animationTree != null)
+		{
+			// Assuming you use a state machine in the AnimationTree
+			var playback = (AnimationNodeStateMachinePlayback)_animationTree.Get("parameters/playback");
+			playback.Travel("flight_animation");
+		}
+	}
 
     public override void StatePhysicsProcess(double delta)
     {

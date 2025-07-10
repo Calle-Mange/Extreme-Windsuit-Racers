@@ -9,12 +9,11 @@ public partial class ThirdPersonCamera : Camera3D
 	private CharacterBody3D _glider;
 	private Area3D _cameraInnerHitBox;
 	private Area3D _cameraOuterHitBox;
-	private CollisionShape3D _cameraHitBoxInnerArea;
-	private CollisionShape3D _cameraHitBoxOuterArea;
 	private Node3D _gliderCollisionShape;
 	private Camera3D _birdCamera;
 	private Camera3D _bodyCamera;
 	private Camera3D _faceCamera;
+	private Area3D _gliderHitBox;
 
 	// Transition state
 	private bool _isTransitioning = false;
@@ -30,7 +29,11 @@ public partial class ThirdPersonCamera : Camera3D
 	// Custom transition durations
 	private const float DefaultTransitionDuration = 2.5f;
 	private const float MediumTransitionDuration = 10.0f; 
-	private const float SlowTransitionDuration = 50.0f; 
+	private const float SlowTransitionDuration = 50.0f;
+
+	// Flag to indicate if the camera is frozen due to glider collision
+	private bool _isCameraFrozen = false;
+	private Transform3D _frozenWorldTransform;
 
 	// Helper properties for collision
 	private bool IsCameraInnerColliding => _cameraInnerHitBox?.GetOverlappingBodies().Count > 0;
@@ -46,13 +49,27 @@ public partial class ThirdPersonCamera : Camera3D
 		_faceCamera = _glider.GetNode<Camera3D>("FaceCamera");
 		_cameraInnerHitBox = _glider.GetNode<Area3D>("CameraInnerHitBox");
 		_cameraOuterHitBox = _glider.GetNode<Area3D>("CameraOuterHitBox");
-		_cameraHitBoxInnerArea = _cameraInnerHitBox.GetNode<CollisionShape3D>("CameraInnerCollisionShape");
-		_cameraHitBoxOuterArea = _cameraOuterHitBox.GetNode<CollisionShape3D>("CameraOuterCollisionShape");
+		_gliderHitBox = _glider.GetNode<Area3D>("GliderHitbox");
+
+		// Connect signals for freezing/unfreezing
+		_gliderHitBox.BodyEntered += OnGliderHitBoxCollision;
+		_gliderHitBox.BodyExited += OnGliderHitBoxExit;
 
 		_isTransitioning = false;
 		_transitionTargetCamera = null;
 		_previousCamera = null;
 		Current = true;
+	}
+
+	private void OnGliderHitBoxCollision(Node body)
+	{
+		_isCameraFrozen = true;
+		_frozenWorldTransform = GlobalTransform; // Store the current world transform
+	}
+
+	private void OnGliderHitBoxExit(Node body)
+	{
+		_isCameraFrozen = false;
 	}
 
 	private void StartTransition(Camera3D targetCamera, float? customDuration = null)
@@ -67,6 +84,13 @@ public partial class ThirdPersonCamera : Camera3D
 
 	public override void _Process(double delta)
 	{
+		if (_isCameraFrozen)
+		{
+			// Keep the camera fixed in world space
+			GlobalTransform = _frozenWorldTransform;
+			return;
+		}
+
 		if (_cameraInnerHitBox == null || _cameraOuterHitBox == null || _glider == null || _gliderCollisionShape == null ||
 			_bodyCamera == null || _faceCamera == null || _birdCamera == null)
 			return;
@@ -101,7 +125,7 @@ public partial class ThirdPersonCamera : Camera3D
 		{
 			if (_transitionTargetCamera != _faceCamera || !_isTransitioning)
 			{
-				GD.Print("Inner hitbox (or both hitboxes) colliding. Forcing transition to FaceCamera.");
+				//GD.Print("Inner hitbox (or both hitboxes) colliding. Forcing transition to FaceCamera.");
 				StartTransition(_faceCamera, DefaultTransitionDuration);
 			}
 			return;
@@ -112,7 +136,7 @@ public partial class ThirdPersonCamera : Camera3D
 		{
 			if (_transitionTargetCamera != _bodyCamera || !_isTransitioning)
 			{
-				GD.Print("Only outer hitbox colliding. Forcing transition to BodyCamera.");
+				//GD.Print("Only outer hitbox colliding. Forcing transition to BodyCamera.");
 				StartTransition(_bodyCamera, MediumTransitionDuration);
 			}
 			return;
@@ -121,7 +145,7 @@ public partial class ThirdPersonCamera : Camera3D
 		// Priority 3: No collisions (lowest, do not abort ongoing transitions)
 		if (!_isTransitioning && _transitionTargetCamera != _birdCamera)
 		{
-			GD.Print("No collisions. Transitioning to BirdCamera.");
+			//GD.Print("No collisions. Transitioning to BirdCamera.");
 			StartTransition(_birdCamera, SlowTransitionDuration);
 		}
 	}

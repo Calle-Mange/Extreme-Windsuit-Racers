@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://bk5gmw4ujo8fc"]
+
+[ext_resource type="Script" uid="uid://cpm55hma8siqb" path="res://Assets/Interior/Propeller.cs" id="1_2x0aw"]
+[ext_resource type="PackedScene" uid="uid://c8ssrtsokt5kx" path="res://Assets/Interior/Propeller.glb" id="1_ayoih"]
+[ext_resource type="Shader" uid="uid://cbq3j7lbxtsmi" path="res://Assets/Rooms/LongRoom2/chessPatter2.gdshader" id="2_2x0aw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y6iat"]
+render_priority = 0
+shader = ExtResource("2_2x0aw")
+shader_parameter/square_amount = 5.0
+shader_parameter/frequency = 10.0
+shader_parameter/amplitude = 0.2
+shader_parameter/speed = 1.0
+shader_parameter/room_time_scale = 1.0
+shader_parameter/floor_time_scale = 1.0
+shader_parameter/scroll_speed = 1.0
+shader_parameter/noise_density = 50.0
+shader_parameter/jitter_amount = 0.05
+shader_parameter/min_jitter_amplitude = 0.0
+shader_parameter/max_jitter_amplitude = 0.0
+shader_parameter/jitter_hz = 0.0
+shader_parameter/jitter_rotation_hz = 0.0
+
+[node name="Propeller" type="Node3D"]
+script = ExtResource("1_2x0aw")
+
+[node name="Propeller" parent="." instance=ExtResource("1_ayoih")]
+transform = Transform3D(1, 1.74846e-07, 0, -1.74846e-07, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="propeller" parent="Propeller" index="0"]
+material_override = SubResource("ShaderMaterial_y6iat")
+
+[node name="propeller" parent="Propeller/propeller" index="0"]
+collision_layer = 256
+
+[node name="CollisionShape3D" parent="Propeller/propeller/propeller" index="0"]
+visible = false
+
+[editable path="Propeller"]

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://2bmwidmknra8"]
+
+[ext_resource type="Texture2D" uid="uid://d0ji6cmgqyjch" path="res://Assets/Textures/BloodSplat.png" id="1_lcu4c"]
+[ext_resource type="AudioStream" uid="uid://c46sp1pl0oj74" path="res://Assets/Audio/Fx/BloodSplat.mp3" id="2_7v7d6"]
+
+[node name="Crash_fx" type="Node3D"]
+
+[node name="BloodDecal" type="Decal" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 46.9601, 243.931)
+size = Vector3(10, 10, 10)
+texture_albedo = ExtResource("1_lcu4c")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_7v7d6")
