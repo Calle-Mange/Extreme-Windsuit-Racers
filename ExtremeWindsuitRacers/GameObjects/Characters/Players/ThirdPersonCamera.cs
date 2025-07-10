@@ -1,32 +1,152 @@
-using Godot;
+﻿using Godot;
+using System.Runtime.InteropServices;
 
 public partial class ThirdPersonCamera : Camera3D
 {
-	private RayCast3D _raycolider;
-	private Vector3 _originalRelativePosition;
-	[Export] public float CollisionYOffset { get; set; } = 1.0f; // Amount to lower the camera on collision
+	[DllImport("kernel32.dll")]
+	static extern bool AllocConsole();
+
+	private CharacterBody3D _glider;
+	private Area3D _cameraInnerHitBox;
+	private Area3D _cameraOuterHitBox;
+	private Node3D _gliderCollisionShape;
+	private Camera3D _birdCamera;
+	private Camera3D _bodyCamera;
+	private Camera3D _faceCamera;
+	private Area3D _gliderHitBox;
+
+	// Transition state
+	private bool _isTransitioning = false;
+	private float _transitionDuration = 2.5f; // default seconds
+	private float _transitionProgress = 0f;
+	private Transform3D _startTransform;
+	private Camera3D _transitionTargetCamera;
+	private Camera3D _previousCamera;
+
+	// Thresholds for ending the transition
+	private const float PositionThreshold = 0.01f;
+
+	// Custom transition durations
+	private const float DefaultTransitionDuration = 2.5f;
+	private const float MediumTransitionDuration = 10.0f; 
+	private const float SlowTransitionDuration = 50.0f;
+
+	// Flag to indicate if the camera is frozen due to glider collision
+	private bool _isCameraFrozen = false;
+	private Transform3D _frozenWorldTransform;
+
+	// Helper properties for collision
+	private bool IsCameraInnerColliding => _cameraInnerHitBox?.GetOverlappingBodies().Count > 0;
+	private bool IsCameraOuterColliding => _cameraOuterHitBox?.GetOverlappingBodies().Count > 0;
 
 	public override void _Ready()
 	{
-		_raycolider = GetNode<RayCast3D>("camcolider");
-		_originalRelativePosition = Position; // Store the camera's original relative position
+		AllocConsole();
+		_glider = GetParent<CharacterBody3D>();
+		_gliderCollisionShape = _glider.GetNode<Node3D>("GliderCollisionShape3D");
+		_birdCamera = _glider.GetNode<Camera3D>("BirdCamera");
+		_bodyCamera = _glider.GetNode<Camera3D>("BodyCamera");
+		_faceCamera = _glider.GetNode<Camera3D>("FaceCamera");
+		_cameraInnerHitBox = _glider.GetNode<Area3D>("CameraInnerHitBox");
+		_cameraOuterHitBox = _glider.GetNode<Area3D>("CameraOuterHitBox");
+		_gliderHitBox = _glider.GetNode<Area3D>("GliderHitbox");
+
+		// Connect signals for freezing/unfreezing
+		_gliderHitBox.BodyEntered += OnGliderHitBoxCollision;
+		_gliderHitBox.BodyExited += OnGliderHitBoxExit;
+
+		_isTransitioning = false;
+		_transitionTargetCamera = null;
+		_previousCamera = null;
+		Current = true;
 	}
 
-	public override void _PhysicsProcess(double delta)
+	private void OnGliderHitBoxCollision(Node body)
 	{
-		if (_raycolider == null)
+		_isCameraFrozen = true;
+		_frozenWorldTransform = GlobalTransform; // Store the current world transform
+	}
+
+	private void OnGliderHitBoxExit(Node body)
+	{
+		_isCameraFrozen = false;
+	}
+
+	private void StartTransition(Camera3D targetCamera, float? customDuration = null)
+	{
+		_isTransitioning = true;
+		_transitionProgress = 0f;
+		_startTransform = GlobalTransform;
+		_previousCamera = _transitionTargetCamera;
+		_transitionTargetCamera = targetCamera;
+		_transitionDuration = customDuration ?? DefaultTransitionDuration;
+	}
+
+	public override void _Process(double delta)
+	{
+		if (_isCameraFrozen)
+		{
+			// Keep the camera fixed in world space
+			GlobalTransform = _frozenWorldTransform;
+			return;
+		}
+
+		if (_cameraInnerHitBox == null || _cameraOuterHitBox == null || _glider == null || _gliderCollisionShape == null ||
+			_bodyCamera == null || _faceCamera == null || _birdCamera == null)
 			return;
 
-		if (_raycolider.IsColliding())
+		// Smooth transition logic
+		if (_isTransitioning && _transitionTargetCamera != null)
 		{
-			Vector3 collisionPoint = _raycolider.GetCollisionPoint();
-			collisionPoint.Y -= CollisionYOffset;
-			GlobalTransform = new Transform3D(GlobalTransform.Basis, collisionPoint);
+			Transform3D gliderShapeTransform = _gliderCollisionShape.GlobalTransform;
+			Transform3D targetTransform = _transitionTargetCamera.GlobalTransform;
+			Transform3D relative = gliderShapeTransform.AffineInverse() * targetTransform;
+			Transform3D currentTargetTransform = gliderShapeTransform * relative;
+
+			_transitionProgress += (float)delta / _transitionDuration;
+			float t = Mathf.Clamp(_transitionProgress, 0f, 1f);
+
+			var interpBasis = GlobalTransform.Basis.Slerp(currentTargetTransform.Basis, t);
+			var interpOrigin = GlobalTransform.Origin.Lerp(currentTargetTransform.Origin, t);
+			GlobalTransform = new Transform3D(interpBasis, interpOrigin);
+
+			bool positionClose = GlobalTransform.Origin.DistanceTo(currentTargetTransform.Origin) < PositionThreshold;
+			bool rotationClose = GlobalTransform.Basis.IsEqualApprox(currentTargetTransform.Basis);
+
+			if (positionClose && rotationClose)
+			{
+				_isTransitioning = false;
+				GlobalTransform = currentTargetTransform;
+			}
 		}
-		else
+
+		// Priority 1: If inner hitbox is colliding (regardless of outer), always go to FaceCamera
+		if (IsCameraInnerColliding)
 		{
-			// Restore the camera's original relative position
-			Position = _originalRelativePosition;
+			if (_transitionTargetCamera != _faceCamera || !_isTransitioning)
+			{
+				//GD.Print("Inner hitbox (or both hitboxes) colliding. Forcing transition to FaceCamera.");
+				StartTransition(_faceCamera, DefaultTransitionDuration);
+			}
+			return;
+		}
+
+		// Priority 2: If only outer hitbox is colliding, go to BodyCamera
+		if (IsCameraOuterColliding && !IsCameraInnerColliding)
+		{
+			if (_transitionTargetCamera != _bodyCamera || !_isTransitioning)
+			{
+				//GD.Print("Only outer hitbox colliding. Forcing transition to BodyCamera.");
+				StartTransition(_bodyCamera, MediumTransitionDuration);
+			}
+			return;
+		}
+
+		// Priority 3: No collisions (lowest, do not abort ongoing transitions)
+		if (!_isTransitioning && _transitionTargetCamera != _birdCamera)
+		{
+			//GD.Print("No collisions. Transitioning to BirdCamera.");
+			StartTransition(_birdCamera, SlowTransitionDuration);
 		}
 	}
 }

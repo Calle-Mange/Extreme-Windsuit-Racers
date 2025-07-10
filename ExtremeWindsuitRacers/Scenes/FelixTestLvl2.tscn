@@ -44,8 +44,15 @@ script = ExtResource("4_yba40")
 FlySpeed = 10.0
 MouseSensitivity = 0.1
 
+[node name="Skeleton3D" parent="Player/Armature" index="0"]
+bones/1/rotation = Quaternion(0.147217, 0.000176083, 0.00193868, 0.989102)
+bones/2/rotation = Quaternion(0.293791, -0.0808677, 0.896248, -0.322315)
+bones/4/rotation = Quaternion(0.732095, 0.109575, 0.662243, -0.116035)
+bones/7/rotation = Quaternion(-0.293674, -0.0820809, 0.897428, 0.318811)
+bones/9/rotation = Quaternion(0.732663, -0.106703, -0.662526, -0.113484)
+
 [node name="Camera3D" parent="Player" index="3"]
-CollisionYOffset = 2.0
+script = null
 
 [node name="camcolider" parent="Player/Camera3D" index="0"]
 transform = Transform3D(1, -0.000390333, -3.64981e-05, -0.000380461, -0.988715, 0.149812, -9.45627e-05, -0.149812, -0.988715, -0.00430375, -0.0522308, -4.78584)

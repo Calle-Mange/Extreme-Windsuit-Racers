@@ -3,28 +3,48 @@
   "WorkspaceRootPath": "U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\Assets\\Interior\\Propeller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Interior\\Propeller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74298375-3148-4B3D-AB66-8CD1A9A39039}|New Game Project.csproj|u:\\git\\extreme-windsuit-racers\\extremewindsuitracers\\gameobjects\\characters\\players\\glider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74298375-3148-4B3D-AB66-8CD1A9A39039}|New Game Project.csproj|solutionrelative:gameobjects\\characters\\players\\glider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74298375-3148-4B3D-AB66-8CD1A9A39039}|New Game Project.csproj|u:\\git\\extreme-windsuit-racers\\extremewindsuitracers\\scenes\\flighttestlevelfelix.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74298375-3148-4B3D-AB66-8CD1A9A39039}|New Game Project.csproj|solutionrelative:scenes\\flighttestlevelfelix.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{74298375-3148-4B3D-AB66-8CD1A9A39039}|New Game Project.csproj|u:\\git\\extreme-windsuit-racers\\extremewindsuitracers\\gameobjects\\characters\\players\\thirdpersoncamera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{74298375-3148-4B3D-AB66-8CD1A9A39039}|New Game Project.csproj|solutionrelative:gameobjects\\characters\\players\\thirdpersoncamera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{74298375-3148-4B3D-AB66-8CD1A9A39039}|New Game Project.csproj|u:\\git\\extreme-windsuit-racers\\extremewindsuitracers\\gameobjects\\characters\\players\\movement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{74298375-3148-4B3D-AB66-8CD1A9A39039}|New Game Project.csproj|solutionrelative:gameobjects\\characters\\players\\movement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{74298375-3148-4B3D-AB66-8CD1A9A39039}|New Game Project.csproj|u:\\git\\extreme-windsuit-racers\\extremewindsuitracers\\gameobjects\\characters\\players\\playerstatemachine\\movementstatemachine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74298375-3148-4B3D-AB66-8CD1A9A39039}|New Game Project.csproj|solutionrelative:gameobjects\\characters\\players\\playerstatemachine\\movementstatemachine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{74298375-3148-4B3D-AB66-8CD1A9A39039}|New Game Project.csproj|u:\\git\\extreme-windsuit-racers\\extremewindsuitracers\\gameobjects\\characters\\players\\wingsuitmomentumcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{74298375-3148-4B3D-AB66-8CD1A9A39039}|New Game Project.csproj|solutionrelative:gameobjects\\characters\\players\\wingsuitmomentumcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{74298375-3148-4B3D-AB66-8CD1A9A39039}|New Game Project.csproj|u:\\git\\extreme-windsuit-racers\\extremewindsuitracers\\scenes\\respawnmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74298375-3148-4B3D-AB66-8CD1A9A39039}|New Game Project.csproj|solutionrelative:scenes\\respawnmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74298375-3148-4B3D-AB66-8CD1A9A39039}|New Game Project.csproj|u:\\git\\extreme-windsuit-racers\\extremewindsuitracers\\gameobjects\\characters\\players\\playerstatemachine\\movementstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74298375-3148-4B3D-AB66-8CD1A9A39039}|New Game Project.csproj|solutionrelative:gameobjects\\characters\\players\\playerstatemachine\\movementstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{74298375-3148-4B3D-AB66-8CD1A9A39039}|New Game Project.csproj|u:\\git\\extreme-windsuit-racers\\extremewindsuitracers\\gameobjects\\characters\\players\\analoginputcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{74298375-3148-4B3D-AB66-8CD1A9A39039}|New Game Project.csproj|solutionrelative:gameobjects\\characters\\players\\analoginputcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\Scripts\\PlayerController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Scripts\\PlayerController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{74298375-3148-4B3D-AB66-8CD1A9A39039}|New Game Project.csproj|u:\\git\\extreme-windsuit-racers\\extremewindsuitracers\\gameobjects\\characters\\players\\playerstatemachine\\divestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74298375-3148-4B3D-AB66-8CD1A9A39039}|New Game Project.csproj|solutionrelative:gameobjects\\characters\\players\\playerstatemachine\\divestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{74298375-3148-4B3D-AB66-8CD1A9A39039}|New Game Project.csproj|u:\\git\\extreme-windsuit-racers\\extremewindsuitracers\\assets\\terrain\\generatedterrain\\testkurva.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{74298375-3148-4B3D-AB66-8CD1A9A39039}|New Game Project.csproj|solutionrelative:assets\\terrain\\generatedterrain\\testkurva.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{74298375-3148-4B3D-AB66-8CD1A9A39039}|New Game Project.csproj|u:\\git\\extreme-windsuit-racers\\extremewindsuitracers\\gameobjects\\characters\\players\\playerstatemachine\\glidestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74298375-3148-4B3D-AB66-8CD1A9A39039}|New Game Project.csproj|solutionrelative:gameobjects\\characters\\players\\playerstatemachine\\glidestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74298375-3148-4B3D-AB66-8CD1A9A39039}|New Game Project.csproj|u:\\git\\extreme-windsuit-racers\\extremewindsuitracers\\gameobjects\\characters\\players\\playerstatemachine\\breakstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74298375-3148-4B3D-AB66-8CD1A9A39039}|New Game Project.csproj|solutionrelative:gameobjects\\characters\\players\\playerstatemachine\\breakstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,7 +54,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 11,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,75 +62,146 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "PlayerController.cs",
-              "DocumentMoniker": "U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\Scripts\\PlayerController.cs",
-              "RelativeDocumentMoniker": "Scripts\\PlayerController.cs",
-              "ToolTip": "U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\Scripts\\PlayerController.cs",
-              "RelativeToolTip": "Scripts\\PlayerController.cs",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-08T11:57:42.118Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Testkurva.cs",
-              "DocumentMoniker": "U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\Assets\\Terrain\\GeneratedTerrain\\Testkurva.cs",
-              "RelativeDocumentMoniker": "Assets\\Terrain\\GeneratedTerrain\\Testkurva.cs",
-              "ToolTip": "U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\Assets\\Terrain\\GeneratedTerrain\\Testkurva.cs",
-              "RelativeToolTip": "Assets\\Terrain\\GeneratedTerrain\\Testkurva.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-05T14:45:27.197Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "WingSuitMomentumController.cs",
-              "DocumentMoniker": "U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\GameObjects\\Characters\\Players\\WingSuitMomentumController.cs",
-              "RelativeDocumentMoniker": "GameObjects\\Characters\\Players\\WingSuitMomentumController.cs",
-              "ToolTip": "U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\GameObjects\\Characters\\Players\\WingSuitMomentumController.cs",
-              "RelativeToolTip": "GameObjects\\Characters\\Players\\WingSuitMomentumController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-15T09:26:15.307Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Movement.cs",
-              "DocumentMoniker": "U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\GameObjects\\Characters\\Players\\Movement.cs",
-              "RelativeDocumentMoniker": "GameObjects\\Characters\\Players\\Movement.cs",
-              "ToolTip": "U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\GameObjects\\Characters\\Players\\Movement.cs",
-              "RelativeToolTip": "GameObjects\\Characters\\Players\\Movement.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-15T12:58:42.792Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "ThirdPersonCamera.cs",
               "DocumentMoniker": "U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\GameObjects\\Characters\\Players\\ThirdPersonCamera.cs",
               "RelativeDocumentMoniker": "GameObjects\\Characters\\Players\\ThirdPersonCamera.cs",
               "ToolTip": "U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\GameObjects\\Characters\\Players\\ThirdPersonCamera.cs",
               "RelativeToolTip": "GameObjects\\Characters\\Players\\ThirdPersonCamera.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAoAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACYAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-15T13:29:54.815Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "AnalogInputController.cs",
               "DocumentMoniker": "U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\GameObjects\\Characters\\Players\\AnalogInputController.cs",
               "RelativeDocumentMoniker": "GameObjects\\Characters\\Players\\AnalogInputController.cs",
               "ToolTip": "U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\GameObjects\\Characters\\Players\\AnalogInputController.cs",
               "RelativeToolTip": "GameObjects\\Characters\\Players\\AnalogInputController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-17T07:55:22.624Z"
+              "WhenOpened": "2025-05-17T07:55:22.624Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "DiveState.cs",
+              "DocumentMoniker": "U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\GameObjects\\Characters\\Players\\PlayerStateMachine\\DiveState.cs",
+              "RelativeDocumentMoniker": "GameObjects\\Characters\\Players\\PlayerStateMachine\\DiveState.cs",
+              "ToolTip": "U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\GameObjects\\Characters\\Players\\PlayerStateMachine\\DiveState.cs",
+              "RelativeToolTip": "GameObjects\\Characters\\Players\\PlayerStateMachine\\DiveState.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T16:19:51.45Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "BreakState.cs",
+              "DocumentMoniker": "U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\GameObjects\\Characters\\Players\\PlayerStateMachine\\BreakState.cs",
+              "RelativeDocumentMoniker": "GameObjects\\Characters\\Players\\PlayerStateMachine\\BreakState.cs",
+              "ToolTip": "U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\GameObjects\\Characters\\Players\\PlayerStateMachine\\BreakState.cs",
+              "RelativeToolTip": "GameObjects\\Characters\\Players\\PlayerStateMachine\\BreakState.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T16:20:22.517Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "GlideState.cs",
+              "DocumentMoniker": "U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\GameObjects\\Characters\\Players\\PlayerStateMachine\\GlideState.cs",
+              "RelativeDocumentMoniker": "GameObjects\\Characters\\Players\\PlayerStateMachine\\GlideState.cs",
+              "ToolTip": "U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\GameObjects\\Characters\\Players\\PlayerStateMachine\\GlideState.cs",
+              "RelativeToolTip": "GameObjects\\Characters\\Players\\PlayerStateMachine\\GlideState.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T16:20:29.201Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "MovementState.cs",
+              "DocumentMoniker": "U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\GameObjects\\Characters\\Players\\PlayerStateMachine\\MovementState.cs",
+              "RelativeDocumentMoniker": "GameObjects\\Characters\\Players\\PlayerStateMachine\\MovementState.cs",
+              "ToolTip": "U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\GameObjects\\Characters\\Players\\PlayerStateMachine\\MovementState.cs",
+              "RelativeToolTip": "GameObjects\\Characters\\Players\\PlayerStateMachine\\MovementState.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAAQwAcAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T10:37:49.045Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MovementStateMachine.cs",
+              "DocumentMoniker": "U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\GameObjects\\Characters\\Players\\PlayerStateMachine\\MovementStateMachine.cs",
+              "RelativeDocumentMoniker": "GameObjects\\Characters\\Players\\PlayerStateMachine\\MovementStateMachine.cs",
+              "ToolTip": "U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\GameObjects\\Characters\\Players\\PlayerStateMachine\\MovementStateMachine.cs",
+              "RelativeToolTip": "GameObjects\\Characters\\Players\\PlayerStateMachine\\MovementStateMachine.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T10:38:34.887Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "RespawnMenu.cs",
+              "DocumentMoniker": "U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\Scenes\\RespawnMenu.cs",
+              "RelativeDocumentMoniker": "Scenes\\RespawnMenu.cs",
+              "ToolTip": "U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\Scenes\\RespawnMenu.cs",
+              "RelativeToolTip": "Scenes\\RespawnMenu.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T15:34:27.499Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FlightTestLevelFelix.cs",
+              "DocumentMoniker": "U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\Scenes\\FlightTestLevelFelix.cs",
+              "RelativeDocumentMoniker": "Scenes\\FlightTestLevelFelix.cs",
+              "ToolTip": "U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\Scenes\\FlightTestLevelFelix.cs",
+              "RelativeToolTip": "Scenes\\FlightTestLevelFelix.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-08T17:21:56.453Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Glider.cs",
+              "DocumentMoniker": "U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\GameObjects\\Characters\\Players\\Glider.cs",
+              "RelativeDocumentMoniker": "GameObjects\\Characters\\Players\\Glider.cs",
+              "ToolTip": "U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\GameObjects\\Characters\\Players\\Glider.cs",
+              "RelativeToolTip": "GameObjects\\Characters\\Players\\Glider.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T16:51:27.045Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Propeller.cs",
+              "DocumentMoniker": "U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\Assets\\Interior\\Propeller.cs",
+              "RelativeDocumentMoniker": "Assets\\Interior\\Propeller.cs",
+              "ToolTip": "U:\\Git\\Extreme-Windsuit-Racers\\ExtremeWindsuitRacers\\Assets\\Interior\\Propeller.cs",
+              "RelativeToolTip": "Assets\\Interior\\Propeller.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T18:57:30.485Z",
+              "EditorCaption": ""
             }
           ]
         }

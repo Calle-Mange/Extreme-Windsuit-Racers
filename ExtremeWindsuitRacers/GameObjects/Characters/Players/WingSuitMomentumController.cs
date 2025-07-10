@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using System;
 using System.Collections.Generic;
 
@@ -113,7 +113,7 @@ public partial class WingSuitMomentumController : CharacterBody3D
                 AnimationStateMachinePlayback.Travel("dive_animation");
             }
 
-            GD.Print(CurrentPlayerState);
+            //GD.Print(CurrentPlayerState);
         }
 
         if (Input.IsActionJustPressed("break"))
@@ -129,7 +129,7 @@ public partial class WingSuitMomentumController : CharacterBody3D
                 AnimationStateMachinePlayback.Travel("break_animation");
             }
 
-            GD.Print(CurrentPlayerState);
+            //GD.Print(CurrentPlayerState);
         }
     }
 

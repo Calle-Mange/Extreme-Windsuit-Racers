@@ -1,0 +1,72 @@
+[gd_scene load_steps=11 format=3 uid="uid://d2d3xoxpf33r5"]
+
+[ext_resource type="Script" uid="uid://cbifivp8l7bdv" path="res://Scenes/FlightTestLevelFelix.cs" id="1_dfkkv"]
+[ext_resource type="PackedScene" uid="uid://cgsqnmu8jsdeo" path="res://Scenes/room4.tscn" id="1_fq4wy"]
+[ext_resource type="PackedScene" uid="uid://dln587e3sx38" path="res://Assets/Rooms/LongRoom1/longRoomCylinders.tscn" id="2_3qnsw"]
+[ext_resource type="PackedScene" uid="uid://b7sg2uk78j1mk" path="res://GameObjects/Characters/Players/Glider.tscn" id="3_dfkkv"]
+[ext_resource type="PackedScene" uid="uid://vvayjv3rbx1d" path="res://demo/assets/models/Tunnel.tscn" id="4_3qnsw"]
+[ext_resource type="PackedScene" uid="uid://cmywqgefirv5a" path="res://Scenes/respawn_menu.tscn" id="6_mq0jx"]
+[ext_resource type="PackedScene" uid="uid://bk5gmw4ujo8fc" path="res://Assets/Interior/Propeller.tscn" id="7_jnj3b"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_wc30h"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_5udol"]
+sky_material = SubResource("ProceduralSkyMaterial_wc30h")
+
+[sub_resource type="Environment" id="Environment_deyb4"]
+background_mode = 2
+sky = SubResource("Sky_5udol")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="flight-test-level" type="Node3D"]
+script = ExtResource("1_dfkkv")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_deyb4")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Room4" parent="." instance=ExtResource("1_fq4wy")]
+
+[node name="Node3D" parent="." instance=ExtResource("2_3qnsw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.6566, 33, 144)
+
+[node name="Node3D4" parent="Node3D" instance=ExtResource("2_3qnsw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.20186, -0.706688, -29.9108)
+
+[node name="Glider" parent="." instance=ExtResource("3_dfkkv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 75.3787, 260.549)
+
+[node name="Tunnel" parent="." instance=ExtResource("4_3qnsw")]
+transform = Transform3D(-0.931224, 0.349823, -0.10221, 0.364236, 0.902922, -0.228176, 0.0124662, -0.249711, -0.96824, 219.685, -37.3799, 222.137)
+collision_layer = 8
+collision_mask = 1
+
+[node name="Respawn_Menu" parent="." instance=ExtResource("6_mq0jx")]
+
+[node name="Propeller" parent="." instance=ExtResource("7_jnj3b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.20366, 59.9413, 240.56)
+RotationSpeed = 4.0
+
+[node name="Propeller2" parent="." instance=ExtResource("7_jnj3b")]
+transform = Transform3D(1.18138, 0, -0.237435, 0.0236603, 1.199, 0.117724, 0.236253, -0.120078, 1.1755, -3.11715, 51.5031, 221.76)
+RotationSpeed = -5.0
+
+[node name="Propeller3" parent="." instance=ExtResource("7_jnj3b")]
+transform = Transform3D(1.23155, 9.79751e-09, -0.460996, 0.0313467, 1.31196, 0.0837426, 0.459929, -0.0894172, 1.2287, 0.181811, 46.076, 204.884)
+RotationSpeed = -2.0
+
+[node name="Propeller4" parent="." instance=ExtResource("7_jnj3b")]
+transform = Transform3D(1.16121, 0.0116373, -0.616984, 0.0313467, 1.31196, 0.0837426, 0.616297, -0.0886567, 1.15825, 5.62038, 38.923, 187.628)
+RotationSpeed = 1.0
+
+[node name="Propeller5" parent="." instance=ExtResource("7_jnj3b")]
+transform = Transform3D(1.23968, -0.00161982, -0.438662, 0.0884518, 1.2889, 0.245209, 0.429654, -0.26067, 1.21518, 20.5975, 24.189, 157.123)
+RotationSpeed = -10.01
+
+[editable path="Tunnel"]
