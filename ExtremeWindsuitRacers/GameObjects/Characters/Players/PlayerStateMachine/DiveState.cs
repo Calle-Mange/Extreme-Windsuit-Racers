@@ -14,10 +14,9 @@ public partial class DiveState : MovementState
 
 	public override void Enter()
 	{
-		MaxPitch = -45f;
-		MinPitch = -89f;
+        base.Enter();
 
-		if (_animationTree != null)
+        if (_animationTree != null)
 		{
 			var playback = (AnimationNodeStateMachinePlayback)_animationTree.Get("parameters/playback");
 			playback.Travel("dive_animation");

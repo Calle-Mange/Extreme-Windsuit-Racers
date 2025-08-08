@@ -25,7 +25,9 @@ public partial class MovementStateMachine : Node
 	public float CurrentGravitySpeed;
 	public float targetPitch = 0.0f;
 	public float targetYaw = 0.0f;
-	protected Tween RotationalTween;
+	public float CurrentMaxPitch = 89f;
+	public float CurrentMinPitch = -89f;
+    protected Tween RotationalTween;
 	#endregion
 
 	public override void _Ready()

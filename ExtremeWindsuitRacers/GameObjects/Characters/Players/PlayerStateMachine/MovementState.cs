@@ -24,6 +24,7 @@ public partial class MovementState : Node
 
     protected Vector3 ForwardDirection;
     protected float gravity = 9.82f;
+    protected bool steerable = true;
 
     public override void _Ready() { }
 
@@ -32,7 +33,8 @@ public partial class MovementState : Node
     /// </summary>
     public virtual void Enter() 
     {
-
+        MovementStateMachine.CurrentMaxPitch = MaxPitch;
+        MovementStateMachine.CurrentMinPitch = MinPitch;
     }
 
     /// <summary>
@@ -98,7 +100,7 @@ public partial class MovementState : Node
     /// <returns>Return the calculated acceleration.</returns>
     protected virtual float CalculateAcceleration(float acceleration)
     {
-        acceleration = (MovementStateMachine.currentPitch / MaxPitch) * MaxAcceleration * -1;
+        acceleration = (MovementStateMachine.currentPitch / MovementStateMachine.CurrentMaxPitch) * MaxAcceleration * -1;
         acceleration = Mathf.Clamp(acceleration, MaxDeacceleration, MaxAcceleration);
 
         return acceleration;
@@ -118,12 +120,12 @@ public partial class MovementState : Node
 
     public override void _UnhandledInput(InputEvent @event)
     {
-        if (@event is InputEventMouseMotion motion)
+        if (@event is InputEventMouseMotion motion && steerable)
         {
             MovementStateMachine.targetYaw -= motion.ScreenRelative.X * MouseSensitivity;
             MovementStateMachine.targetPitch -= motion.ScreenRelative.Y * MouseSensitivity;
 
-            MovementStateMachine.targetPitch = Mathf.Clamp(MovementStateMachine.targetPitch, MinPitch, MaxPitch);
+            MovementStateMachine.targetPitch = Mathf.Clamp(MovementStateMachine.targetPitch, MovementStateMachine.CurrentMinPitch, MovementStateMachine.CurrentMaxPitch);
         }
 
         if (@event is InputEventKey keyEvent && keyEvent.Pressed && keyEvent.Keycode == Key.Escape)

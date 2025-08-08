@@ -17,10 +17,9 @@ public partial class BreakState : MovementState
 
     public override void Enter()
     {
-        MaxPitch = 89f;
-        MinPitch = -89f;
-
-		if (_animationTree != null)
+        base.Enter();
+        
+        if (_animationTree != null)
 		{
 			var playback = (AnimationNodeStateMachinePlayback)_animationTree.Get("parameters/playback");
 			playback.Travel("break_animation");

@@ -16,8 +16,7 @@ public partial class GlideState : MovementState
 
     public override void Enter()
     {
-        MaxPitch = 89f;
-        MinPitch = -89f;
+        base.Enter();
     }
 
     public override void Exit()
